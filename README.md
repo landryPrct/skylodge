@@ -1,5 +1,5 @@
 
-##  🛠 Installation de python , pip, virtualenv
+##  🛠 Installation de python , pip, virtualenv, django etc...
 
 Installer Python3 (qui est installer sur ubuntu 20.04)
 Sous windows , il faut le telecharger sus sa page officiel
@@ -66,5 +66,5 @@ Vous saurez qu'il est activé une fois le préfixe remplacé par(env), qui resse
 
 Dans l'environnement, installez le package Django à l'aide de pip. L'installation de Django nous permet de créer et d'exécuter des applications Django. Pour en savoir plus sur Django, lisez notre série de tutoriels sur Django Development .
 ```bash
-pip install -r requirements.txt django
+pip install -r requirements.txt 
 ```
