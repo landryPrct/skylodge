@@ -32,13 +32,7 @@ Sous windows , il faut le telecharger sus sa page officiel
 virtualenv 20.13.3 from /home/sammy/.local/lib/python3.5/site-packages/virtualenv/__init__.py
 ```
 
-**Étape 3 - Installer Django**
-
-```bash
-$ pip install -r requirements.txt 
-```
-
-Installation  des autres outils comme:
+### Installation  des autres outils comme:
 
 - PyCharm ou Visual code
 - chrome ou Edge ou FireFox
@@ -59,7 +53,7 @@ virtualenv env
 ```
 Maintenant, activez l'environnement virtuel avec la commande suivante :
 ```bash
-. env/bin/activate
+source env/bin/activate
 ```
 Vous saurez qu'il est activé une fois le préfixe remplacé par(env), qui ressemblera à ce qui suit selon le répertoire dans lequel vous vous trouvez :
 
