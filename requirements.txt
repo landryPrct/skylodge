@@ -34,3 +34,5 @@ wheel==0.37.1
 # The following packages are considered to be unsafe in a requirements file:
 # pip
 Markdown==3.3.6
+
+Pillow==9.0.1
