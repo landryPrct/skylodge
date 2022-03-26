@@ -34,68 +34,72 @@
 
     <header id="header">
 
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark pt-1 pb-1">
-         <div class="container-fluid">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark pt-1 pb-1">
+  <div class="container-fluid">
 
-             <a class="navbar-brand " href="#">Sky Lodge</a>
+    <a class="navbar-brand " href="#">Sky Lodge</a>
 
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
-                  <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarScroll">
-                  <ul class="navbar-nav me-auto my-2 my-lg-0 "style="--bs-scroll-height: 100px;">
-                    <li class="nav-item">
-                      <a class="nav-link my_style_navlink active" aria-current="page" href="{% url 'home' %}">Home</a>
-                    </li>
-
-                    <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Link
-                      </a>
-                      <ul class="dropdown-menu dropdown-menu-dark " aria-labelledby="navbarScrollingDropdown">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                      </ul>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Link</a>
-                    </li>
-                  </ul>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
 
+    <div class="collapse navbar-collapse " id=" myMenu">
+      <ul class="navbar-nav me-auto my-2 my-lg-0 "style="--bs-scroll-height: 100px;">
+        <li class="nav-item ">
+          <a class="nav-link my_style_navlink " aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link my_style_navlink "href="#">Link</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle my_style_navlink " href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Link
+          </a>
+          <ul class="dropdown-menu dropdown-menu-dark " aria-labelledby="navbarScrollingDropdown">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Link</a>
+        </li>
+      </ul>
 
-                  <ul class="navbar-nav me-auto my-2 my-lg-0 d-flex " style="--bs-scroll-height: 100px;">
-                    <li class="nav-item">
-                      <a class="nav-link btn btn-defaut" aria-current="page" href="#">Connexion</a>
-                    </li>
 
 
-                    <li class="nav-item">
-                      <a class="nav-link btn btn-primary" aria-current="page" href="#">Inscription</a>
-                    </li>
+        <div class="d-flex justify-content-end">
+          <ul class="navbar-nav me-auto my-2 my-lg-0  " style="--bs-scroll-height: 100px;">
+            <li class="nav-item">
+              <a class="nav-link " aria-current="page" href="#">Connexion</a>
+            </li>
 
-                    <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" href="#"  role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                       compte
-                      </a>
-                      <ul class="dropdown-menu dropdown-menu-dark " aria-labelledby="navbarScrollingDropdown">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                      </ul>
-                    </li>
 
-                  </ul>
-                  <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                  </form>
-                </div>
-              </div>
-            </nav>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Inscription</a>
+            </li>
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle active" href="#" id="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+               compte
+              </a>
+              <ul class="dropdown-menu dropdown-menu-dark " aria-labelledby="navbarScrollingDropdown">
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#">Something else here</a></li>
+              </ul>
+            </li>
+
+          </ul>
+    </div>
+
+
+    </div>
+  </div>
+</nav>
 
     </header>
 
@@ -105,13 +109,35 @@
             ------------------------------->
         {% endblock %}
 
+        {% block content %}
+            <!--    content------------------------
+            ------------------------------->
+        {% endblock %}
+
+
+
+
+
 
     {% endblock body %}
 
 
 
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
-
+<script>
+// Add active class to the current button (highlight it)
+var header = document.getElementById("myDIV");
+var btns = header.getElementsByClassName("btn");
+for (var i = 0; i < btns.length; i++) {
+  btns[i].addEventListener("click", function() {
+  var current = document.getElementsByClassName("active");
+  if (current.length > 0) {
+    current[0].className = current[0].className.replace(" active", "");
+  }
+  this.className += " active";
+  });
+}
+</script>
 {% block javascript %}{% endblock %}
 </body>
 </html>

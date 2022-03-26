@@ -2,6 +2,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
+
 {%block title%}Sky Lodge{%endblock%}
 
 {% block slider %}
@@ -47,4 +48,28 @@
   </button>
 </div>
 
+{% endblock %}
+ <!--    content------------------------
+ ------------------------------->
+{% block content %}
+<div class="container">
+
+  <div class="row align-items-start">
+   {% for chambre in chambres %}
+    <div class="col">
+
+      {{ chambre.numero_chambre }}
+      {{ chambre.prix }}
+      {{ chambre.description }}
+
+
+
+    </div>
+    {% endfor %}
+    <div class="col">
+
+    </div>
+  </div>
+
+</div>
 {% endblock %}

@@ -21,7 +21,7 @@ from reservations import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.ChambreView.as_view(), name='home')
+
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,
