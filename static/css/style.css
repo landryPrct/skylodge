@@ -1,6 +1,12 @@
+body{
+	background: rgba(0, 0, 0, .05);
+}
+
 .active, .my_style_navlink:hover{
+
+
 	border-radius: 2px;
-	border-bottom: 2px solid #249e45;
+	border-bottom: 2px solid blue;
 	padding: 0px;
 	cursor: pointer
 }
@@ -9,3 +15,4 @@
 	border-bottom: 2px;
 
 }
+
