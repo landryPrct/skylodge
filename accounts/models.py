@@ -1,4 +1,3 @@
-import username as username
 from django.db import models
 
 
