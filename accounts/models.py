@@ -1,34 +1,32 @@
-import username as username
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 
 # Create your models here.
 
-class Customer(models.Model):
-    username = models.CharField(max_length=100)
-    f_name = models.CharField(max_length=100)
-    l_name = models.CharField(max_length=100)
-    gender = models.CharField(max_length=100)
-    phone = models.CharField(max_length=30)
-    email = models.CharField(max_length=100)
-    address = models.CharField(max_length=100)
-    state = models.CharField(max_length=30, blank=True)
-    password = models.CharField(max_length=100)
+class User(AbstractUser):
+   is_manager=models.BooleanField(default=False)
+   is_customer=models.BooleanField(default=False)
+   first_name=models.CharField(max_length=100)
+   last_name=models.CharField(max_length=100)
 
-    def __str__(self):
-        return self.username
+   def __str__(self):
+        return self.first_name
 
 
 class Manager(models.Model):
-    username = models.CharField(max_length=100)
-    f_name = models.CharField(max_length=100)
-    l_name = models.CharField(max_length=100)
-    gender = models.CharField(max_length=100)
+    user=models.OneToOneField(User,on_delete=models.CASCADE,primary_key=True)
     phone = models.CharField(max_length=30)
-    email = models.CharField(max_length=100)
-    address = models.CharField(max_length=100)
-    state = models.CharField(max_length=30, blank=True)
-    password = models.CharField(max_length=100)
+
 
     def __str__(self):
-        return self.username
+        return self.phone
+
+
+class Customer(models.Model):
+    user=models.OneToOneField(User,on_delete=models.CASCADE,primary_key=True)
+    phone = models.CharField(max_length=30)
+    adress=models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.phone
