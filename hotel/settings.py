@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'accounts',
     'reservations',
-    'django.contrib.humanize',
+
 ]
 AUTH_USER_MODEL = 'accounts.User'
 MIDDLEWARE = [

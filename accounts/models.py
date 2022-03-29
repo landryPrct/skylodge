@@ -11,7 +11,7 @@ class User(AbstractUser):
    last_name=models.CharField(max_length=100)
 
    def __str__(self):
-        return self.first_name
+        return str(self.username)
 
 
 class Manager(models.Model):
@@ -20,13 +20,13 @@ class Manager(models.Model):
 
 
     def __str__(self):
-        return self.phone
+        return self.user
 
 
 class Customer(models.Model):
     user=models.OneToOneField(User,on_delete=models.CASCADE,primary_key=True)
     phone = models.CharField(max_length=30)
-    adress=models.CharField(max_length=100)
+    address=models.CharField(max_length=100)
 
     def __str__(self):
-        return self.phone
+        return str(self.user)
