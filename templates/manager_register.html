@@ -20,7 +20,7 @@
                   <h2>Register</h2>
                 </div>
                 <div class="card-body">
-                    <form action="{% url 'customer_register' %}" method="POST" novalidate>
+                    <form action="{% url 'manager_register' %}" method="POST" novalidate>
                       {% csrf_token %}
                          {% for field in form.visible_fields %}
                            <div class="form-group">

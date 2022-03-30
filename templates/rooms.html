@@ -1,0 +1,47 @@
+ {% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block title %}Start a New Topic{% endblock %}
+
+{% block content %}
+
+<div class="container p-5">
+    <hr>
+    <div class="row">
+      <div class="col-md-6">
+        <p class="fs-4">Listes des chambres</p>
+      </div>
+       <div class="col-md-6">
+        <a href="{% url 'new_room'%}" class="btn btn-primary "><i class="fa fa-plus"></i> Ajouter </a>
+      </div>
+    </div>
+  <div class="border-top border-success border-50 border-5">
+    <table class="table table-light table-hover ">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Numero</th>
+      <th scope="col">Type</th>
+      <th scope="col">Disponibilite</th>
+      <th scope="col">Prix</th>
+      <th scope="col">Enregistre le</th>
+      <th scope="col">Par</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for room in rooms%}
+    <tr>
+      <td>{{room.id}}</td>
+      <td>{{room.room_no}}</td>
+      <td>{{room.room_type}}</td>
+      <td>{{room.is_available}}</td>
+       <td>{{room.price}}</td>
+       <td>{{room.star_date}}</td>
+       <td>{{room.manager}}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+  </div>
+</div>
+
+ {% endblock %}
