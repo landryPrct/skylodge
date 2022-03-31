@@ -1,10 +1,7 @@
-from django.contrib.auth import login
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 from django.http import HttpResponse
-from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import ListView
-
+from django.shortcuts import render, redirect
 from reservations.forms import AjoutChambreForm
 from reservations.models import Chambre
 
@@ -28,5 +25,9 @@ def ajoutChambre(request):
             return redirect('home')
     else:
         form = AjoutChambreForm()
-    return render(request, 'ajout_Chambre.html', {'form': form})
+    #     listes de Chambre
+    chambres = Chambre.objects.all()
+    if not chambres:
+        messages.warning(request, "Pas de Chambre trouves")
+    return render(request, 'chambres.html', {'form': form,'chambres':chambres})
 
