@@ -22,12 +22,14 @@ from django.contrib.auth import views as auth_views
 from reservations import views as reservations_views
 
 urlpatterns = [
-    path('', reservations_views.home,name='home'),
+    path('', reservations_views.home, name='home'),
     path('admin/', admin.site.urls),
-    path('hotel/signup/user',accounts_views.user_signup,name='user_signup'),
-    path('hotel/signup/staff',accounts_views.staff_signup,name='staff_signup'),
+    path('hotel/signup/user', accounts_views.user_signup, name='user_signup'),
+    path('hotel/signup/staff', accounts_views.staff_signup, name='staff_signup'),
     path('hotel/login', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+
+    path('hotel/ajoutChambre', reservations_views.ajoutChambre, name='ajoutChambre'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,

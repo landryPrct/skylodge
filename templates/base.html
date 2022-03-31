@@ -48,9 +48,13 @@
         <li class="nav-item">
           <a class="nav-link" href="#">Link</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle "  id="dropdown01" data-bs-toggle="dropdown" aria-expanded="false">Chambres</a>
+            <ul class="dropdown-menu" aria-labelledby="dropdown01">
+                <li><a href="{% url 'ajoutChambre'%}"   class="dropdown-item" >Ajout Chambre</a></li>
+              <li><a href="{% url 'staff_signup'%}" class="dropdown-item" >Staff</a></li>
+            </ul>
+          </li>
       </ul>
        {% if user.is_authenticated %}
         <ul class="navbar-nav me-auto mb-2">
@@ -69,10 +73,10 @@
       </div>
         {% else %}
       <div class="d-flex">
-        <a class=" text-white btn btn-outline-defaut" type="submit">Connexion</a>
+        <a class=" text-white btn btn-outline-defaut" href="{% url 'login'%}">Connexion</a>
         <ul class="navbar-nav me-auto mb-2">
         <li class="nav-item dropdown">
-            <a class="nav-link text-dark btn btn-warning dropdown-toggle "  href="#" id="dropdown01" data-bs-toggle="dropdown" aria-expanded="false">Inscription</a>
+            <a class="nav-link text-dark btn btn-warning dropdown-toggle "  href="#" id="dropdown01" data-bs-toggle="dropdown" aria-expanded="false">Creer un Compte</a>
             <ul class="dropdown-menu" aria-labelledby="dropdown01">
                 <li><a href="{% url 'user_signup'%}"  class="dropdown-item" >Client</a></li>
               <li><a href="{% url 'staff_signup'%}" class="dropdown-item" >Staff</a></li>
