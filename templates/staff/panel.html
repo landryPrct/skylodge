@@ -1,0 +1,115 @@
+
+{% extends 'base.html'%}
+{% load app_tags %}
+
+{% block css %}
+<!--   .progress {-->
+<!--        width: 150px;-->
+<!--        height: 150px;-->
+<!--        background: none;-->
+<!--        position: relative;-->
+<!--    }-->
+
+<!--    .progress::after {-->
+<!--        content: "";-->
+<!--        width: 100%;-->
+<!--        height: 100%;-->
+<!--        border-radius: 50%;-->
+<!--        border: 6px solid #eee;-->
+<!--        position: absolute;-->
+<!--        top: 0;-->
+<!--        left: 0;-->
+<!--    }-->
+
+<!--    .progress>span {-->
+<!--        width: 50%;-->
+<!--        height: 100%;-->
+<!--        overflow: hidden;-->
+<!--        position: absolute;-->
+<!--        top: 0;-->
+<!--        z-index: 1;-->
+<!--    }-->
+
+<!--    .progress .progress-left {-->
+<!--        left: 0;-->
+<!--    }-->
+
+<!--    .progress .progress-bar {-->
+<!--        width: 100%;-->
+<!--        height: 100%;-->
+<!--        background: none;-->
+<!--        border-width: 6px;-->
+<!--        border-style: solid;-->
+<!--        position: absolute;-->
+<!--        top: 0;-->
+<!--    }-->
+
+<!--    .progress .progress-left .progress-bar {-->
+<!--        left: 100%;-->
+<!--        border-top-right-radius: 80px;-->
+<!--        border-bottom-right-radius: 80px;-->
+<!--        border-left: 0;-->
+<!--        -webkit-transform-origin: center left;-->
+<!--        transform-origin: center left;-->
+<!--    }-->
+
+<!--    .progress .progress-right {-->
+<!--        right: 0;-->
+<!--    }-->
+
+<!--    .progress .progress-right .progress-bar {-->
+<!--        left: -100%;-->
+<!--        border-top-left-radius: 80px;-->
+<!--        border-bottom-left-radius: 80px;-->
+<!--        border-right: 0;-->
+<!--        -webkit-transform-origin: center right;-->
+<!--        transform-origin: center right;-->
+<!--    }-->
+
+<!--    .progress .progress-value {-->
+<!--        position: absolute;-->
+<!--        top: 0;-->
+<!--        left: 0;-->
+<!--    }-->
+<!--    /*-->
+<!--*-->
+<!--* ==========================================-->
+<!--* FOR DEMO PURPOSE-->
+<!--* ==========================================-->
+<!--*-->
+<!--*/-->
+
+<!--    body {-->
+<!--        min-height: 100vh;-->
+<!--    }-->
+
+<!--    .rounded-lg {-->
+<!--        border-radius: 1rem;-->
+<!--    }-->
+
+<!--    .text-gray {-->
+<!--        color: #aaa;-->
+<!--    }-->
+
+<!--    div.h4 {-->
+<!--        line-height: 1rem;-->
+<!--    }-->
+{% endblock %}
+
+{% block content %}
+
+
+                    <!-- Progress bar 1 -->
+
+                <span class="fs-3 text-muted m-auto">Les<span class='display-9 fs-2 text-dark fw-bold '> {{chambres_disponible}}</span> Chambres sont disponibles</span>
+               <div class="progress">
+                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: {{disponible_percent}}%"></div>
+                </div>
+
+                    <!-- END -->
+
+
+
+
+
+{% endblock content %}

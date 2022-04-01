@@ -27,6 +27,9 @@
           font-size: 3.5rem;
         }
       }
+
+      {% block css %}
+      {% endblock %}
     </style>
 
 </head>
@@ -45,7 +48,11 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="#">Home</a>
         </li>
+
           {% if user.is_staff %}
+         <li class="nav-item">
+          <a class="nav-link" href="{% url 'panel'%}">Panel</a>
+        </li>
         <li class="nav-item">
           <a class="nav-link" href="{% url 'chambres'%}">Chambres</a>
         </li>
@@ -85,6 +92,22 @@
   </div>
 </nav>
 
+{% if user.is_staff %}
+<div class="nav-scroller bg-body shadow-sm">
+  <nav class="nav nav-underline" aria-label="Secondary navigation">
+    <a class="nav-link active" aria-current="page" href="#">Dashboard</a>
+    <a class="nav-link" href="#">
+      Chambres
+      <span class="badge bg-light text-dark rounded-pill align-text-bottom">{{total_chambres}}</span>
+    </a>
+
+  </nav>
+</div>
+{% endif %}
+
+
+
+
 <!-------------------------FIN BODY              -->
 {% endblock body%}
 
@@ -93,3 +116,34 @@
 {% endblock content%}
 </body>
 </html>
+
+<!-- jquery for rooms stats  starts here-->
+<script>
+    $(function() {
+
+        $(".progress").each(function() {
+
+            var value = $(this).attr('data-value');
+            var left = $(this).find('.progress-left .progress-bar');
+            var right = $(this).find('.progress-right .progress-bar');
+
+            if (value > 0) {
+                if (value <= 50) {
+                    right.css('transform', 'rotate(' + percentageToDegrees(value) + 'deg)')
+                } else {
+                    right.css('transform', 'rotate(180deg)')
+                    left.css('transform', 'rotate(' + percentageToDegrees(value - 50) + 'deg)')
+                }
+            }
+
+        })
+
+        function percentageToDegrees(percentage) {
+
+            return percentage / 100 * 360
+
+        }
+
+    });
+</script>
+

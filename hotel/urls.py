@@ -30,6 +30,7 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
 
     path('hotel/chambres', reservations_views.ajoutChambre, name='chambres'),
+    path('hotel/panel', reservations_views.panel, name='panel'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,
