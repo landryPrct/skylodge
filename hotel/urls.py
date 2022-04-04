@@ -23,14 +23,19 @@ from reservations import views as reservations_views
 
 urlpatterns = [
     path('', reservations_views.home, name='home'),
+
+    # path('home', reservations_views.ajout_reservations, name='home'),
+    path('hotel/user/room/<int:pk>/reservation', reservations_views.ajout_reservations, name='reservation'),
+
     path('admin/', admin.site.urls),
     path('hotel/signup/user', accounts_views.user_signup, name='user_signup'),
     path('hotel/signup/staff', accounts_views.staff_signup, name='staff_signup'),
     path('hotel/login', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
 
-    path('hotel/chambres', reservations_views.ajoutChambre, name='chambres'),
-    path('hotel/panel', reservations_views.panel, name='panel'),
+    path('hotel/staff/chambres', reservations_views.ajoutChambre, name='chambres'),
+    path('hotel/staff/panel', reservations_views.panel, name='panel'),
+    # path('hotel/user/reservation', reservations_views.ajout_reservations, name='reservation'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,
