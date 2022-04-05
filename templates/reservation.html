@@ -7,18 +7,20 @@
 {% block content %}
 
 <div class="container col-xl-10 col-xxl-8 px-4 py-1">
-    <h1>Listes et Enregistrement </h1>
+    <h1>Reservation </h1>
     <hr class="text-primary ">
     <div class="row align-items-center g-lg-5 py-1">
 
       <div class="col-lg-7 text-center text-lg-start">
+        <p class="fs-2">Merci! Poursuit votre réservation :<u>{{user.username }}</u></p>
 
-        {{chambre_id}}
+        <p> Vous réserver la chambre numéro :{{chambre_id}}</p>
+
       </div>
       <div class="col-md-10 mx-auto col-lg-5">
        <form class="p-4 p-md-5 border rounded-3 bg-light" method="post" novalidate>
               {% csrf_token %}
-
+           <h6>Choisser votre durée de séjour</h6>
                     {% if form.non_field_errors %}
                       <div class="alert alert-danger" role="alert">
                         {% for error in form.non_field_errors %}
@@ -46,7 +48,7 @@
                     {% endfor %}
           <button class="w-100 btn btn-lg btn-primary" type="submit">Enregistrer</button>
           <hr class="my-4">
-          <small class="text-muted">By clicking Sign up, you agree to the terms of use.</small>
+
         </form>
       </div>
     </div>
