@@ -10,15 +10,20 @@ def home(request):
     if request.method == 'POST':
         fromdate = request.POST.get('fromdate')
         todate = request.POST.get('todate')
-        searchResult= Chambre.objects.raw(
-           'SELECT  "reservations_chambre"."id","reservations_chambre"."prix","reservations_chambre"."chambre_status","reservations_chambre"."chambre_type" FROM "reservations_chambre" INNER JOIN "reservations_reservation" ON  "reservations_chambre"."id"="reservations_reservation"."chambre_id"  WHERE "reservations_reservation"."debut_sejour" < "' + fromdate + '"  AND "reservations_reservation"."fin_sejour" > "' + todate + '"')
+        if len(Reservation.objects.all())==0:
+            searchResult=Chambre.objects.all()
+        else:
+            searchResult= Chambre.objects.raw(
+                'SELECT  "c"."id","c"."prix","c"."chambre_status","c"."chambre_type" FROM "reservations_chambre" AS "c" WHERE "c"."id" NOT IN ( SELECT "r"."chambre_id" FROM "reservations_reservation" AS "r" WHERE "'+fromdate+'" BETWEEN "r"."debut_sejour"  AND "r"."fin_sejour" OR "'+todate+'" BETWEEN "r"."debut_sejour"  AND "r"."fin_sejour" AND "r"."debut_sejour" BETWEEN "'+fromdate+'" AND "'+todate+'" AND "r"."fin_sejour" BETWEEN "'+fromdate+'" AND "'+todate+'") ORDER BY "c"."id"')
 
 
         count_result=len(searchResult)
+        if count_result==0:
+            messages.warning(request,"Desole,les chambres non-disponibles!")
+        else:
+            messages.success(request,str(count_result)+" chambres disponibles!")
         return render(request, 'home.html', {'data': searchResult, 'count': count_result})
-
     else:
-
         return render(request, 'home.html')
 
 
@@ -29,10 +34,10 @@ def panel(request):
 
     total_chambres = len(Chambre.objects.all())
     chambres_disponible = len(Chambre.objects.all().filter(chambre_status='disponible'))
+
     if total_chambres != 0:
         if chambres_disponible != 0:
             disponible_percent = int(chambres_disponible / total_chambres * 100)
-
     else:
         disponible_percent = 1
 
@@ -72,6 +77,9 @@ def ajoutChambre(request):
 
 @login_required
 def ajout_reservations(request,pk):
+    if  request.user.is_staff:
+        messages.warning(request, "Ouff! vous n'est pas un Client.. connectez-vous")
+        return render(request, 'home.html')
     chambre_id=get_object_or_404(Chambre,pk=pk)
 
     if request.method == 'POST':
@@ -87,7 +95,28 @@ def ajout_reservations(request,pk):
         form = AjoutReservationForm()
     #     listes de reservations
     reservations = Reservation.objects.all()
-    if not reservations:
-        messages.warning(request, "Pas de Chambre trouves")
+    # if not reservations:
+    #     messages.warning(request, "Pas de Chambre trouves")
 
     return render(request, 'reservation.html', {'form': form, 'reservations': reservations, 'chambre_id': chambre_id,})
+
+@login_required
+def listReservation(request):
+    if not  request.user.is_staff:
+        messages.warning(request, "Ouff! vous n'est pas un Staff.. connectez-vous")
+        return render(request, 'home.html')
+    listReservations=Reservation.objects.all()
+    if listReservations ==0:
+        messages.warning(request, "Pas de Reservation trouves")
+    return render(request,'listReservations.html',{'reservations':listReservations})
+
+@login_required
+def mesReservation(request):
+    if  request.user.is_staff:
+        messages.warning(request, "Ouff! vous n'est pas un Client.. connectez-vous")
+        return render(request, 'home.html')
+
+    mesReservations=Reservation.objects.all()
+    if mesReservations == 0:
+        messages.warning(request, "Pas de Reservations trouvees")
+    return render(request,'mesReservations.html',{'reservations':mesReservations})
