@@ -1,0 +1,96 @@
+{% extends 'base.html'%}
+{% load  widget_tweaks %}
+
+
+{% block title %} Chambres{% endblock  %}
+
+{% block content %}
+
+<div class="container col-xl-10 col-xxl-8 px-4 py-1">
+    <h3>Listes des Chambres </h3>
+    <hr class="text-primary ">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Nouveau chambre</button>
+    <div class="row align-items-center g-lg-5 py-1">
+
+      <div class="col-lg-7 text-center text-lg-start">
+
+
+          <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">Numero</th>
+                  <th scope="col">Type</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Prix</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for chambre in chambres %}
+                <tr>
+                  <th scope="row"><a  href=" ">{{chambre.chambre_numero}}</a></th>
+                  <td>{{chambre.chambre_type}}</td>
+                  <td>{{chambre.chambre_status}}</td>
+                  <td>{{chambre.prix}} Fbu</td>
+
+                </tr>
+
+              {% endfor %}
+              </tbody>
+            </table>
+      </div>
+    </div>
+  </div>
+
+
+
+<!-- Modal -->
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Nouveau Chambre</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <form class="p-4 p-md-5 border rounded-3 bg-light" method="post" novalidate>
+              {% csrf_token %}
+
+                    {% if form.non_field_errors %}
+                      <div class="alert alert-danger" role="alert">
+                        {% for error in form.non_field_errors %}
+                          <p>{% if forloop.last %} class="mb-0"{% endif %}>{{ error }}</p>
+                        {% endfor %}
+                      </div>
+                    {% endif %}
+
+                    {% for field in form %}
+                      <div class="form-floating ">
+
+                        {% render_field field class="form-control" id='floatingInput' %}
+                            {{ field.label_tag }}
+                        {% for error in field.errors %}
+                        <div class="invalid-feedback">
+                            {{ error }}
+                          </div>
+                        {% endfor %}
+<!--                        {% if field.help_text %}-->
+<!--                          <small class="form-text text-muted">-->
+<!--                            {{ field.help_text|safe }}-->
+<!--                          </small>-->
+<!--                        {% endif %}-->
+                      </div>
+                    {% endfor %}
+          <button class="w-100 btn btn-lg btn-primary" type="submit">Enregistrer</button>
+          <hr class="my-4">
+
+        <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock content%}
