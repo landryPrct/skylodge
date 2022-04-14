@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+<<<<<<< HEAD
     'django.contrib.sites',
 
     'allauth',
@@ -47,6 +48,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
 
+=======
+>>>>>>> 931acac18227c6a6d4666ac47fb366248b3f45bd
     'widget_tweaks',
     'accounts',
     'reservations',
@@ -83,6 +86,7 @@ TEMPLATES = [
         },
     },
 ]
+<<<<<<< HEAD
 SITE_ID = 2
 AUTHENTICATION_BACKENDS = [
 
@@ -93,6 +97,9 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
 
 ]
+=======
+
+>>>>>>> 931acac18227c6a6d4666ac47fb366248b3f45bd
 WSGI_APPLICATION = 'hotel.wsgi.application'
 
 
@@ -124,6 +131,7 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+<<<<<<< HEAD
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
         'SCOPE': [
@@ -135,6 +143,9 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     }
 }
+=======
+
+>>>>>>> 931acac18227c6a6d4666ac47fb366248b3f45bd
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
@@ -168,6 +179,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
+<<<<<<< HEAD
 # Bottom of the file
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
@@ -176,3 +188,5 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'businessego@gmail.com'
 EMAIL_HOST_PASSWORD = 'landry2015'
 DEFAULT_FROM_EMAIL = 'businessego@gmail.com'
+=======
+>>>>>>> 931acac18227c6a6d4666ac47fb366248b3f45bd
