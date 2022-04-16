@@ -5,20 +5,20 @@
 {% block title %} Reservation{% endblock  %}
 
 {% block content %}
-
+<section class="bg-cover text-dark">
 <div class="container col-xl-10 col-xxl-8 px-4 py-1">
     <h1>Reservation </h1>
     <hr class="text-primary ">
     <div class="row align-items-center g-lg-5 py-1">
 
-      <div class="col-lg-7 text-center text-lg-start">
+      <div class="col-lg-7 text-center  text-lg-start">
         <p class="fs-2">Merci! Poursuit votre réservation :<u>{{user.username }}</u></p>
 
         <p> Vous réserver la chambre numéro :{{chambre_id}}</p>
 
       </div>
       <div class="col-md-10 mx-auto col-lg-5">
-       <form class="p-4 p-md-5 border rounded-3 bg-light" method="post" novalidate>
+       <form class="p-4 p-md-5 border rounded-3 text-dark"  style="background-color:rgba(34,55,67,.2)" method="post" novalidate>
               {% csrf_token %}
            <h6>Choisser votre durée de séjour</h6>
                     {% if form.non_field_errors %}
@@ -32,7 +32,7 @@
                     {% for field in form %}
                       <div class="form-floating ">
 
-                        {% render_field field class="form-control" id='floatingInput' %}
+                        {% render_field field class="form-control bg-light text-dark" id='floatingInput'  %}
                             {{ field.label_tag }}
                         {% for error in field.errors %}
                         <div class="invalid-feedback">
@@ -46,12 +46,12 @@
 <!--                        {% endif %}-->
                       </div>
                     {% endfor %}
-          <button class="w-100 btn btn-lg btn-primary" type="submit">Enregistrer</button>
+          <button class="w-100 btn btn-lg btn-main" type="submit" >Enregistrer</button>
           <hr class="my-4">
 
         </form>
       </div>
     </div>
   </div>
-
+</section>
 {% endblock content%}

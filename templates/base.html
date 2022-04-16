@@ -2,118 +2,158 @@
 {% load static %}
 
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+
 <head>
-     <meta charset="utf-8">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <title>{% block title %} {% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-    <link href="{% static 'css/navbar-top-fixed.css' %}" rel="stylesheet">
-    <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet">
-     <link href="{% static 'css/all.min.css' %}" rel="stylesheet">
-    <script src="{% static 'js/bootstrap.bundle.min.js'%}"></script>
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
 
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
-      {% block css %}
-      {% endblock %}
-    </style>
+    <link rel="stylesheet" href="{% static 'css/line-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/all.css' %}">
 
+    <title>Sky Lodge </title>
 </head>
-<body  class="bg-light">
-{% block body %}
-<!----------------------------BODY-->
-
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
-  <div class="container-fluid">
-    <a class="fw-bold  navbar-brand" href="#">Sky Lodge</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarCollapse">
-      <ul class="navbar-nav me-auto mb-2 mb-md-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
-        </li>
-
-          {% if user.is_staff %}
-         <li class="nav-item">
-          <a class="nav-link" href="{% url 'panel'%}">Panel</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'chambres'%}">Chambres</a>
-        </li>
-          <li class="nav-item">
-          <a class="nav-link" href="{% url 'listereservations'%}">les Reservations</a>
-        </li>
-          {% endif %}
-          {% if  not user.is_staff and user.is_authenticated%}
-
-              <li class="nav-item">
-              <a class="nav-link" href="{% url 'mesReservations'%}">Mes reservations</a>
-            </li>
-          {% endif %}
-
-      </ul>
-       {% if user.is_authenticated %}
+<body data-bs-spy="scroll" data-bs-target=".navbar">
+{% block menu %}
+<!--navbar-->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-white" data-aos="fade-down">
+        <div class="container">
+            <a class="navbar-brand" href="#">Sky Lodge Hôtel</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}#accueil">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}#services">Services</a>
+                    </li>
 
 
-        <div class="d-flex">
-        <a href="" class="text-warning fw-bold btn bg-white" >{{ user.username }}</a>
-        <a href="{% url 'logout'%}" class="text-warning fw-bold btn btn-outline-defaut-warning" >Deconnexion</a>
-      </div>
-        {% else %}
-      <div class="d-flex">
-        <a class=" text-white btn btn-outline-defaut" href="{% url 'account_login'%}">Connexion</a>
-          <a href="{% url 'account_signup'%}"  class="nav-link text-dark btn btn-warning  "  >Inscription</a>
+                     <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}#disponibilite">Réserver</a>
+                    </li>
 
 
-      </div>
-        {% endif %}
-    </div>
-  </div>
-</nav>
-
-{% if user.is_staff %}
-<div class="nav-scroller bg-body shadow-sm">
-  <nav class="nav nav-underline" aria-label="Secondary navigation">
-    <a class="nav-link active" aria-current="page" href="#">Dashboard</a>
-    <a class="nav-link" href="#"><i class="fa-solid fa-bed"></i>
-
-      <span class="badge bg-dark text-white rounded-pill align-text-bottom">{{total_chambres}}</span>
-    </a>
-
-  </nav>
-</div>
-{% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}#contact">Contact</a>
+                    </li>
 
 
 
+                      {% if user.is_staff %}
+<!--                    <li class="nav-item">-->
+<!--                      <a class="nav-link" href="{% url 'panel'%}">Panel</a>-->
+<!--                    </li>-->
+                    <li class="nav-item">
+                      <a class="nav-link" href="{% url 'chambres'%}">Chambres</a>
+                    </li>
+                      <li class="nav-item">
+                      <a class="nav-link" href="{% url 'listereservations'%}">les Reservations</a>
+                    </li>
+                      {% endif %}
+                      {% if  not user.is_staff and user.is_authenticated%}
+
+                          <li class="nav-item">
+                          <a class="nav-link" href="{% url 'mesReservations'%}">Mes reservations</a>
+                        </li>
+                      {% endif %}
+                        <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}#apropos">À Propos</a>
+                    </li>
+                      {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a href="#" data-aos="fade-up" class="btn btn-main  ">{{ user.username }}</a>
+                    </li>
+                     <li class="nav-item">
+                        <a href="{% url 'account_logout'%}" data-aos="fade-up" class="nav-link text-warning">Déconnexion</a>
+                    </li>
+                      {% else %}
+                    <li class="nav-item">
+                        <a href="{% url 'account_login'%}" data-aos="fade-up" class="nav-link text-warning">Connexion</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'account_signup'%}" data-aos="fade-up" class="btn btn-main  ">Inscription</a>
+                    </li>
+                        {% endif %}
+
+                </ul>
+            </div>
+        </div>
+
+    </nav>
 
 
-<!-------------------------FIN BODY              -->
-{% endblock body%}
+<!--{% if user.is_staff %}-->
+<!--<div class="nav-scroller bg-body shadow-sm">-->
+<!--  <nav class="nav nav-underline" aria-label="Secondary navigation">-->
+<!--    <a class="nav-link active" aria-current="page" href="#">Dashboard</a>-->
+<!--    <a class="nav-link" href="#"><i class="fa-solid fa-bed"></i>-->
+
+<!--      <span class="badge bg-dark text-white rounded-pill align-text-bottom">{{total_chambres}}</span>-->
+<!--    </a>-->
+
+<!--  </nav>-->
+<!--</div>-->
+<!--{% endif %}-->
+
+
+
+
+
+<!-- FIN BODY -->
+{% endblock menu%}
+
+{% block connect %}
+
+{% endblock%}
 
 {% block content %}
 
-{% endblock content%}
+
+{% endblock content %}
+<!--footer-->
+{% block footer %}
+ <footer class="py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-0">Copyright © 2021-2022. landry</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+<!--                    <div>-->
+<!--                        <a href="#"><i class='bx bxl-facebook-circle'></i></a>-->
+<!--                        <a href="#"><i class='bx bxl-twitter'></i></a>-->
+<!--                        <a href="#"><i class='bx bxl-dribbble'></i></a>-->
+<!--                        <a href="#"><i class='bx bxl-instagram'></i></a>-->
+<!--                        <a href="#"><i class='bx bxl-github'></i></a>-->
+<!--                    </div>-->
+                </div>
+            </div>
+        </div>
+    </footer>
+{% endblock footer %}
 </body>
 </html>
+ <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+    </script>
 
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="{% static 'js/app.js' %}"></script>
 <!-- jquery for rooms stats  starts here-->
 <script>
     $(function() {

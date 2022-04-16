@@ -22,9 +22,9 @@ def home(request):
             messages.warning(request,"Desole,les chambres non-disponibles!")
         else:
             messages.success(request,str(count_result)+" chambres disponibles!")
-        return render(request, 'home.html', {'data': searchResult, 'count': count_result})
+        return render(request, 'accueil.html', {'data': searchResult, 'count': count_result})
     else:
-        return render(request, 'home.html')
+        return render(request, 'accueil.html')
 
 
 @login_required
@@ -79,7 +79,7 @@ def ajoutChambre(request):
 def ajout_reservations(request,pk):
     if  request.user.is_staff:
         messages.warning(request, "Ouff! vous n'est pas un Client.. connectez-vous")
-        return render(request, 'home.html')
+        return render(request, 'accueil.html')
     chambre_id=get_object_or_404(Chambre,pk=pk)
 
     if request.method == 'POST':
@@ -104,7 +104,7 @@ def ajout_reservations(request,pk):
 def listReservation(request):
     if not  request.user.is_staff:
         messages.warning(request, "Ouff! vous n'est pas un Staff.. connectez-vous")
-        return render(request, 'home.html')
+        return render(request, 'accueil.html')
     listReservations=Reservation.objects.all()
     if listReservations ==0:
         messages.warning(request, "Pas de Reservation trouves")
@@ -114,7 +114,7 @@ def listReservation(request):
 def mesReservation(request):
     if  request.user.is_staff:
         messages.warning(request, "Ouff! vous n'est pas un Client.. connectez-vous")
-        return render(request, 'home.html')
+        return render(request, 'accueil.html')
 
     mesReservations=Reservation.objects.all()
     if mesReservations == 0:

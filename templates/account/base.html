@@ -1,3 +1,5 @@
+
+{% extends "../base.html" %}
 <!DOCTYPE html>
 <html>
   <head>
@@ -5,9 +7,9 @@
     {% block extra_head %}
     {% endblock %}
   </head>
-  <body>
+  <body class="m-5">
     {% block body %}
-
+<div class="m-5">
     {% if messages %}
     <div>
       <strong>Messages:</strong>
@@ -35,6 +37,7 @@
     {% endblock %}
     {% endblock %}
     {% block extra_body %}
+  </div>
     {% endblock %}
   </body>
 </html>

@@ -9,7 +9,7 @@
 <div class="container col-xl-10 col-xxl-8 px-4 py-1">
     <h3>Listes des Chambres </h3>
     <hr class="text-primary ">
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Nouveau chambre</button>
+    <button type="button" class="btn btn-main" data-aos="fade-up" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Nouveau chambre</button>
     <div class="row align-items-center g-lg-5 py-1">
 
       <div class="col-lg-7 text-center text-lg-start">
@@ -54,7 +54,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-          <form class="p-4 p-md-5 border rounded-3 bg-light" method="post" novalidate>
+          <form class="p-4 p-md-5 border rounded-3   " style="background-color:rgba(34,55,67,.2)"  method="post" novalidate>
               {% csrf_token %}
 
                     {% if form.non_field_errors %}
@@ -66,9 +66,9 @@
                     {% endif %}
 
                     {% for field in form %}
-                      <div class="form-floating ">
+                      <div class="form-floating my-2 ">
 
-                        {% render_field field class="form-control" id='floatingInput' %}
+                        {% render_field field class="form-control bg-light text-dark" id='floatingInput'  %}
                             {{ field.label_tag }}
                         {% for error in field.errors %}
                         <div class="invalid-feedback">
@@ -82,7 +82,7 @@
 <!--                        {% endif %}-->
                       </div>
                     {% endfor %}
-          <button class="w-100 btn btn-lg btn-primary" type="submit">Enregistrer</button>
+          <button class="w-100 btn btn-lg btn-main" data-aos="fade-up" type="submit">Enregistrer</button>
           <hr class="my-4">
 
         <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
