@@ -1,12 +1,12 @@
 from django.contrib.auth import login
 from django.shortcuts import redirect, render
 
-from accounts.forms import SignUpForm
+from accounts.forms import SignupForm
 
 
 def user_signup(request):
     if request.method == 'POST':
-        form = SignUpForm(request.POST)
+        form = SignupForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
             user.is_superuser = False
@@ -15,13 +15,13 @@ def user_signup(request):
             login(request, user)
             return redirect('home')
     else:
-        form = SignUpForm()
+        form = SignupForm()
     return render(request, 'signup.html', {'form': form})
 
 
 def staff_signup(request):
     if request.method == 'POST':
-        form = SignUpForm(request.POST)
+        form = SignupForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
             user.is_superuser = False
@@ -30,5 +30,5 @@ def staff_signup(request):
             login(request, user)
             return redirect('home')
     else:
-        form = SignUpForm()
+        form = SignupForm()
     return render(request, 'signup.html', {'form': form})

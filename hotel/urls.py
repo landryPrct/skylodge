@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf.urls import include
 from django.conf.urls.static import static
 from django.conf import settings
 from accounts import views as accounts_views
@@ -23,6 +24,7 @@ from reservations import views as reservations_views
 
 urlpatterns = [
     path('', reservations_views.home, name='home'),
+    path('accounts/', include('allauth.urls')),
 
     # path('home', reservations_views.ajout_reservations, name='home'),
     path('hotel/user/room/<int:pk>/reservation', reservations_views.ajout_reservations, name='reservation'),

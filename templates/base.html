@@ -78,16 +78,10 @@
       </div>
         {% else %}
       <div class="d-flex">
-        <a class=" text-white btn btn-outline-defaut" href="{% url 'login'%}">Connexion</a>
-        <ul class="navbar-nav me-auto mb-2">
-        <li class="nav-item dropdown">
-            <a class="nav-link text-dark btn btn-warning dropdown-toggle "  href="#" id="dropdown01" data-bs-toggle="dropdown" aria-expanded="false">Creer un Compte</a>
-            <ul class="dropdown-menu" aria-labelledby="dropdown01">
-                <li><a href="{% url 'user_signup'%}"  class="dropdown-item" >Client</a></li>
-              <li><a href="{% url 'staff_signup'%}" class="dropdown-item" >Staff</a></li>
-            </ul>
-          </li>
-        </ul>
+        <a class=" text-white btn btn-outline-defaut" href="{% url 'account_login'%}">Connexion</a>
+          <a href="{% url 'account_signup'%}"  class="nav-link text-dark btn btn-warning  "  >Inscription</a>
+
+
       </div>
         {% endif %}
     </div>
