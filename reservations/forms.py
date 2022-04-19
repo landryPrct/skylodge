@@ -8,6 +8,7 @@ class AjoutChambreForm(forms.ModelForm):
         model = Chambre
         fields = ['chambre_type', 'chambre_status', 'prix', 'chambre_numero']
 
+
 class AjoutReservationForm(forms.ModelForm):
     debut_sejour = forms.DateField(required=True, widget=forms.DateInput(
         format=('%d/%m/%y'),
@@ -23,7 +24,7 @@ class AjoutReservationForm(forms.ModelForm):
                'type': 'date'
                }
     ))
-    class Meta:
-        model=Reservation
-        fields=['debut_sejour','fin_sejour']
 
+    class Meta:
+        model = Reservation
+        fields = ['debut_sejour', 'fin_sejour']

@@ -21,6 +21,7 @@ for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
 <div class="socialaccount_ballot">
 
   <ul class="socialaccount_providers ">
+
     {% include "socialaccount/snippets/provider_list.html" with process="login" %}
   </ul>
 
@@ -36,7 +37,7 @@ for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
 {% endif %}
 </div>
   <div class="p-3" style="background-color:rgba(34,55,67,.2)"   >
-<form class="login" method="POST" action="{% url 'account_login' %}">
+<form class="login p-4 p-md-5 border rounded-3 bg-light" method="POST" action="{% url 'account_login' %}">
   {% csrf_token %}
   {{ form|crispy }}
   {% if redirect_field_value %}

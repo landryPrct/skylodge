@@ -36,15 +36,15 @@
             {% endfor %}
             <div class="row">
                 <div class="col-md-8 mx-auto" data-aos="fade-up">
-                    <form action="#" class="row g-4" method="post" novalidate>
+                    <form action="#disponibilite" class="row g-4" method="post" novalidate>
                          {% csrf_token %}
                         <div class="form-group col-md-6">
                             <strong>Début Séjour</strong>
-                            <input type="date" class="form-control" name="fromdate" placeholder="Full name">
+                            <input type="date" class="form-control" name="fromdate" placeholder="Full name" required>
                         </div>
                         <div class="form-group col-md-6">
                             <strong>Fin Séjour</strong>
-                            <input type="date" class="form-control" name="todate" placeholder="Email address">
+                            <input type="date" class="form-control" name="todate" placeholder="Email address" required>
                         </div>
                        <!--  <div class="form-group col-md-12">
                             <input type="text" class="form-control" placeholder="Subject">
@@ -61,7 +61,7 @@
         </div>
         <div class="container">
         {% if data %}
-        <table class="table table-hover" id="resultat">
+        <table class="table table-hover"   id="resultat">
               <thead>
                 <tr>
                   <th scope="col">Chambre</th>

@@ -38,7 +38,11 @@ urlpatterns = [
     path('hotel/staff/chambres', reservations_views.ajoutChambre, name='chambres'),
     path('hotel/staff/panel', reservations_views.panel, name='panel'),
     path('hotel/user/mesReservations', reservations_views.mesReservation, name='mesReservations'),
+
     path('hotel/staff/reservations', reservations_views.listReservation, name='listereservations'),
+    path('hotel/reservation/delete/<int:pk>', reservations_views.delete_reservation, name='del-reservation'),
+    path('hotel/chambre/edit/<int:pk>', reservations_views.update_chambre, name='update_chambre'),
+    path('hotel/chambre/delete/<int:pk>', reservations_views.delete_chambre, name='del-chambre'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,
