@@ -28,3 +28,24 @@ class AjoutReservationForm(forms.ModelForm):
     class Meta:
         model = Reservation
         fields = ['debut_sejour', 'fin_sejour']
+
+
+class EditReservationForm(forms.ModelForm):
+    debut_sejour = forms.DateField(required=True, widget=forms.DateInput(
+
+        attrs={'class': 'form-control',
+               'placeholder': 'Select a date',
+               'type': 'text'
+               }
+    ))
+    fin_sejour = forms.DateField(required=True, widget=forms.DateInput(
+
+        attrs={'class': 'form-control',
+               'placeholder': 'Select a date',
+               'type': 'text'
+               }
+    ))
+
+    class Meta:
+        model = Reservation
+        fields = ['debut_sejour', 'fin_sejour']

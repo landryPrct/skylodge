@@ -1,54 +1,72 @@
 {% extends "account/base.html" %}
 {% load crispy_forms_tags %}
 {% load i18n %}
+{% load static %}
 {% load account socialaccount %}
 
 {% block head_title %}{% trans "Sign In" %}{% endblock %}
 
 {% block content %}
-<div class="row justify-content-center">
-<div class="py-4 m-5 col-md-4 ">
-  <div class="text-center">
-<h1 class="mt-5">{% trans "Sign In" %}</h1>
 
-{% get_providers as socialaccount_providers %}
+ <section id="accueil" class="bg-cover hero-section">
+        <div class="overlay"></div>
+        <div class="container text-white text-center">
+            <div class="row">
 
-{% if socialaccount_providers %}
-<p>{% blocktrans with site.name as site_name %}Please sign in with one
-of your existing third party accounts. Or, <a class="text-danger" href="{{ signup_url }}">sign up</a>
-for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
 
-<div class="socialaccount_ballot">
+                <div class="row justify-content-center">
+                  <div class="text-center">
+                <h1>{% trans "Sign In" %}</h1>
+                    </div>
+                <div class="py-4 m-4 col-md-4 ">
+                  <div class="text-center">
 
-  <ul class="socialaccount_providers ">
 
-    {% include "socialaccount/snippets/provider_list.html" with process="login" %}
-  </ul>
+                {% get_providers as socialaccount_providers %}
 
-  <div class="login-or">{% trans 'or' %}</div>
+                {% if socialaccount_providers %}
+                <p>{% blocktrans with site.name as site_name %}Veuillez vous connecter avec l'un de vos comptes tiers existants. Ou, <a class="text-danger" href="{{ signup_url }}">Créez un compte</a>
+                {{ site_name }} puis connectez-vous:{% endblocktrans %}</p>
 
-</div>
+                <div class="socialaccount_ballot">
 
-{% include "socialaccount/snippets/login_extra.html" %}
+                  <ul class="socialaccount_providers ">
 
-{% else %}
-<p>{% blocktrans %}If you have not created an account yet, then please
-<a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
-{% endif %}
-</div>
-  <div class="p-3" style="background-color:rgba(34,55,67,.2)"   >
-<form class="login p-4 p-md-5 border rounded-3 bg-light" method="POST" action="{% url 'account_login' %}">
-  {% csrf_token %}
-  {{ form|crispy }}
-  {% if redirect_field_value %}
-  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-  {% endif %}
-  <div class="text-center">
-   <button class="primaryAction btn btn-main" type="submit">{% trans "Sign In" %}</button>
- <p> <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a></p>
-</div>
-</form>
-</div>
-</div>
-  </div>
+                    {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+                  </ul>
+
+                  <div class="login-or">{% trans 'or' %}</div>
+
+                </div>
+
+                {% include "socialaccount/snippets/login_extra.html" %}
+
+                {% else %}
+                <p>{% blocktrans %}If you have not created an account yet, then please
+                <a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
+                {% endif %}
+                </div>
+                  </div>
+                  <div class="py-1 m-4 col-md-4 ">
+
+                <form class="login p-4 p-md-5 rounded-3 bg-info" method="POST" action="{% url 'account_login' %}">
+                  {% csrf_token %}
+                  {{ form|crispy }}
+                  {% if redirect_field_value %}
+                  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                  {% endif %}
+                  <div class="text-center">
+                   <button class="primaryAction btn btn-main" type="submit">{% trans "Sign In" %}</button>
+                 <p> <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a></p>
+                </div>
+                </form>
+                </div>
+
+                  </div>
+            </div>
+        </div>
+    </section>
+
 {% endblock %}
+
+
