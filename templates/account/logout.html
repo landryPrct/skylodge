@@ -5,11 +5,13 @@
 {% block head_title %}{% trans "Sign Out" %}{% endblock %}
 
 {% block content %}
-<div class="pt-4">
-<h1 class="pt-5">{% trans "Sign Out" %}</h1>
+<div class="pt-4 py-5 text-center  ">
+    <h1 class="pt-5 ">{% trans "Sign Out" %}</h1>
 
-<p>{% trans 'Are you sure you want to sign out?' %}</p>
-
+    <p>{% trans 'Are you sure you want to sign out?' %}</p>
+    <h1 class="display-1"><i class="fs-1 fa-solid fa-person-walking-dashed-line-arrow-right"></i></h1>
+  </div>
+<div class="d-flex justify-content-center m-4">
 <form method="post" class="" action="{% url 'account_logout' %}">
   {% csrf_token %}
   {% if redirect_field_value %}

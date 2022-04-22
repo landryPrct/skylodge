@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path
 from django.conf.urls import include
 from django.conf.urls.static import static
 from django.conf import settings
@@ -35,10 +35,15 @@ urlpatterns = [
     path('hotel/login', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
 
-    path('hotel/staff/chambres', reservations_views.ajoutChambre, name='chambres'),
     path('hotel/staff/panel', reservations_views.panel, name='panel'),
-    path('hotel/user/mesReservations', reservations_views.mesReservation, name='mesReservations'),
-    path('hotel/staff/reservations', reservations_views.listReservation, name='listereservations'),
+
+    path('hotel/reservations', reservations_views.listReservation, name='list-reservations'),
+    path('hotel/reservation/edit/<int:pk>', reservations_views.update_reservation, name='update_reservation'),
+    path('hotel/reservation/delete/<int:pk>', reservations_views.delete_reservation, name='del-reservation'),
+
+    path('hotel/chambres', reservations_views.ajoutChambre, name='chambres'),
+    path('hotel/chambre/edit/<int:pk>', reservations_views.update_chambre, name='update_chambre'),
+    path('hotel/chambre/delete/<int:pk>', reservations_views.delete_chambre, name='del-chambre'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,

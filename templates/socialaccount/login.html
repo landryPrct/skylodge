@@ -2,18 +2,25 @@
 {% load i18n %}
 
 {% block content %}
+<div class="text-center mt-5 py-4">
 {% if process == "connect" %}
+
 <h1>{% blocktrans with provider.name as provider %}Connect {{ provider }}{% endblocktrans %}</h1>
 
 <p>{% blocktrans with provider.name as provider %}You are about to connect a new third party account from {{ provider }}.{% endblocktrans %}</p>
 {% else %}
-<h1>{% blocktrans with provider.name as provider %}Sign In Via {{ provider }}{% endblocktrans %}</h1>
 
-<p>{% blocktrans with provider.name as provider %}You are about to sign in using a third party account from {{ provider }}.{% endblocktrans %}</p>
-{% endif %}
+<h1>{% blocktrans with provider.name as provider %}Se Connecter Via {{ provider }}{% endblocktrans %}</h1>
 
+<p>{% blocktrans with provider.name as provider %}Vous êtes sur le point de vous connecter à l'aide d'un compte tiers de {{ provider }}.{% endblocktrans %}</p>
+ <i class=" fs-1 fa-solid fa-door-open mt-5"></i>
+</div>
+  {% endif %}
+<div class="d-flex justify-content-center p-5 my-5">
 <form method="post">
   {% csrf_token %}
-  <button type="submit">{% trans "Continue" %}</button>
+  <button type="submit" class="btn btn-main">{% trans "Continue" %}</button>
 </form>
+    </div>
+
 {% endblock %}

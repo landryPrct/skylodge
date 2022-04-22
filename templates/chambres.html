@@ -6,14 +6,19 @@
 
 {% block content %}
 
-<div class="container col-xl-10 col-xxl-8 px-4 py-1">
-    <h3>Listes des Chambres </h3>
+<div class="container col-xl-10 col-xxl-8 mt-5 px-5 py-1">
+    <h3 class="mt-4">Listes des Chambres </h3>
     <hr class="text-primary ">
-    <button type="button" class="btn btn-main" data-aos="fade-up" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Nouveau chambre</button>
-    <div class="row align-items-center g-lg-5 py-1">
+    <button type="button" class="btn btn-main " data-aos="fade-up" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Nouveau chambre</button>
+    <div class="row align-items-center g-lg-5 py-1 d-flex justify-content-center ">
 
       <div class="col-lg-7 text-center text-lg-start">
-
+        {% for message in messages %}
+            <div class="alert alert-{{message.tags}} alert-dismissible fade show " role="alert">
+                {{message}}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          {% endfor %}
 
           <table class="table table-hover">
               <thead>
@@ -31,7 +36,12 @@
                   <td>{{chambre.chambre_type}}</td>
                   <td>{{chambre.chambre_status}}</td>
                   <td>{{chambre.prix}} Fbu</td>
-
+                  <td>
+                    <a type="button" href="{% url 'update_chambre' chambre.id %}" class="text-primary" title="Editer"><i class="fa-solid fa-file-pen fs-4"></i></a>
+                  </td>
+                    <td>
+                    <a type="button" href="{% url 'del-chambre' chambre.id%}" class="text-danger " title="Supprimer"><i class="fa-regular fa-trash-can fs-4 "></i></a>
+                  </td>
                 </tr>
 
               {% endfor %}

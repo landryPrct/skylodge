@@ -10,7 +10,7 @@
 <h4>Tous les reservations</h4>
     <hr class="text-primary ">
 
-    <div class="row align-items-center g-lg-5 py-1">
+    <div class="row align-items-center g-lg-5 py-1 d-flex justify-content-center">
       <div class="col-lg-9 text-center text-lg-start">
 
 
@@ -18,10 +18,14 @@
               <thead>
                 <tr>
                   <th scope="col">Début sejour</th>
-                  <th scope="col">Fin sejour</th>
+                  <th scope="col">Fin séjour</th>
                   <th scope="col">Chambre</th>
-                  <th scope="col">réserve le</th>
-                    <th scope="col">Par</th>
+                  <th scope="col">Réserver le</th>
+                    {% if  user.is_staff %}
+                  <th scope="col">Par</th>
+                  <th scope="col">Editer</th>
+                    {% endif %}
+                    <th scope="col">Annuler</th>
                 </tr>
               </thead>
               <tbody>
@@ -33,15 +37,20 @@
                     {% endfor %}
               {% for res in reservations %}
 
+                 {% if  user.is_staff or res.client == user %}
                 <tr>
                   <th scope="row">{{res.debut_sejour}}</th>
                   <td>{{res.fin_sejour}}</td>
                   <td>{{res.chambre_id}}</td>
-                  <td>{{res.date_operation}} </td>
-                    <td>{{res.client.username}} </td>
 
-                </tr>
-
+                  <td class="text-success"><i>{{res.date_operation}}</i> </td>
+                       {% if  user.is_staff %}
+                  <td class="text-muted"><i>{{res.client.username}}</i> </td>
+                  <td><a href="{% url 'update_reservation' res.id %}" title="Editer"><i class=" text-primary fa-solid fa-pen fs-3"></i></a></td>
+                    {% endif %}
+                  <td><a href="{% url 'del-reservation' res.id %}" title="Annuler"><i class=" text-danger fa-solid fa-xmark fs-3"></i></a></td>
+                   </tr>
+                {% endif %}
               {% endfor %}
               </tbody>
             </table>

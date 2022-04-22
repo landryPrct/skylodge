@@ -46,13 +46,6 @@
                         <a class="nav-link" href="{% url 'home' %}#disponibilite">Réserver</a>
                     </li>
 
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'home' %}#contact">Contact</a>
-                    </li>
-
-
-
                       {% if user.is_staff %}
 <!--                    <li class="nav-item">-->
 <!--                      <a class="nav-link" href="{% url 'panel'%}">Panel</a>-->
@@ -61,13 +54,13 @@
                       <a class="nav-link" href="{% url 'chambres'%}">Chambres</a>
                     </li>
                       <li class="nav-item">
-                      <a class="nav-link" href="{% url 'listereservations'%}">les Reservations</a>
+                      <a class="nav-link" href="{% url 'list-reservations'%}">les Reservations</a>
                     </li>
                       {% endif %}
                       {% if  not user.is_staff and user.is_authenticated%}
 
                           <li class="nav-item">
-                          <a class="nav-link" href="{% url 'mesReservations'%}">Mes reservations</a>
+                          <a class="nav-link" href="{% url 'list-reservations'%}">Mes reservations</a>
                         </li>
                       {% endif %}
                         <li class="nav-item">
@@ -88,11 +81,9 @@
                         <a href="{% url 'account_signup'%}" data-aos="fade-up" class="btn btn-main  ">Inscription</a>
                     </li>
                         {% endif %}
-
                 </ul>
             </div>
         </div>
-
     </nav>
 
 

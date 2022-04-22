@@ -4,8 +4,9 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 LOGOUT_REDIRECT_URL = 'home'
+
 # LOGIN_REDIRECT_URL = 'home'
-LOGIN_URL = 'login'
+LOGIN_URL = '/accounts/login/'
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
@@ -72,6 +73,7 @@ TEMPLATES = [
     },
 ]
 SITE_ID = 3
+
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 AUTHENTICATION_BACKENDS = [
 
@@ -80,6 +82,7 @@ AUTHENTICATION_BACKENDS = [
 
     # `allauth` specific authentication methods, such as login by e-mail
     'allauth.account.auth_backends.AuthenticationBackend',
+
 
 ]
 WSGI_APPLICATION = 'hotel.wsgi.application'
@@ -122,17 +125,19 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     },
     'facebook': {
-        'SCOPE': [
+        'METHOD': 'oauth2',
+        'SCOPE': ['email', 'public_profile', 'user_friends'],
+        'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
+        'INIT_PARAMS': {'cookie': True},
+        'FIELDS': [
+            'id',
             'email',
-            'read_friendlists',
-            'user_birthday',
-            'user_about_me',
-            'user_interests',
-            'user_groups'
+            'name',
         ],
-        # 'AUTH_PARAMS': { 'auth_type': 'reauthenticate' },
-        'AUTH_PARAMS': {},
-        'METHOD': 'oauth2'
+        'EXCHANGE_TOKEN': True,
+        # 'LOCALE_FUNC': 'path.to.callable',
+        'VERIFIED_EMAIL': False,
+        'VERSION': 'v13.0',
     },
 }
 
