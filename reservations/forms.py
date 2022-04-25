@@ -4,6 +4,7 @@ from reservations.models import Chambre, Reservation
 
 
 class AjoutChambreForm(forms.ModelForm):
+
     class Meta:
         model = Chambre
         fields = ['chambre_type', 'chambre_status', 'prix', 'chambre_numero']
