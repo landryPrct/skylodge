@@ -1,12 +1,18 @@
 from django import forms
 
-from reservations.models import Chambre, Reservation
+from reservations.models import Chambre, Reservation, Categorie
+
+
+class AjoutCategorieForm(forms.ModelForm):
+    class Meta:
+        model = Categorie
+        fields = ['type', 'prix']
 
 
 class AjoutChambreForm(forms.ModelForm):
     class Meta:
         model = Chambre
-        fields = ['chambre_type', 'chambre_status', 'prix', 'chambre_numero']
+        fields = ['categorie', 'chambre_status', 'chambre_numero']
 
 
 class AjoutReservationForm(forms.ModelForm):

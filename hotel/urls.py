@@ -25,7 +25,7 @@ from reservations import views as reservations_views
 urlpatterns = [
     path('', reservations_views.home, name='home'),
     path('accounts/', include('allauth.urls')),
-
+    path('users/', reservations_views.listUsers, name='list-user'),
     # path('home', reservations_views.ajout_reservations, name='home'),
     path('hotel/user/room/<int:pk>/reservation', reservations_views.ajout_reservations, name='reservation'),
 
@@ -40,6 +40,10 @@ urlpatterns = [
     path('hotel/reservations', reservations_views.listReservation, name='list-reservations'),
     path('hotel/reservation/edit/<int:pk>', reservations_views.update_reservation, name='update_reservation'),
     path('hotel/reservation/delete/<int:pk>', reservations_views.delete_reservation, name='del-reservation'),
+
+    path('hotel/categories', reservations_views.ajoutCategorie, name='categorie'),
+    path('hotel/categorie/edit/<int:pk>', reservations_views.update_categorie, name='update_categorie'),
+    path('hotel/categorie/delete/<int:pk>', reservations_views.delete_categorie, name='del-categorie'),
 
     path('hotel/chambres', reservations_views.ajoutChambre, name='chambres'),
     path('hotel/chambre/edit/<int:pk>', reservations_views.update_chambre, name='update_chambre'),

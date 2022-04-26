@@ -1,7 +1,7 @@
 {% extends 'base.html'%}
 {% load  static %}
 {% load  widget_tweaks %}
-
+ {% load app_tags %}
 {% block content %}
 
  <!--hero-->
@@ -40,11 +40,11 @@
                          {% csrf_token %}
                         <div class="form-group col-md-6">
                             <strong>Début Séjour</strong>
-                            <input type="date" class="form-control" name="fromdate" placeholder="Full name" required>
+                            <input type="date" class="form-control" name="fromdate"  min="{% todays_date %}"  placeholder="Full name" required>
                         </div>
                         <div class="form-group col-md-6">
                             <strong>Fin Séjour</strong>
-                            <input type="date" class="form-control" name="todate" placeholder="Email address" required>
+                            <input type="date" class="form-control" name="todate" min="{% tommorow %}"  placeholder="Email address" required>
                         </div>
                        <!--  <div class="form-group col-md-12">
                             <input type="text" class="form-control" placeholder="Subject">
