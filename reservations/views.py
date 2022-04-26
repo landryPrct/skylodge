@@ -1,9 +1,10 @@
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from reservations.forms import AjoutChambreForm, AjoutReservationForm, EditReservationForm
-from reservations.models import Chambre, Reservation
+from reservations.forms import AjoutChambreForm, AjoutReservationForm, EditReservationForm, AjoutCategorieForm
+from reservations.models import Chambre, Reservation,Categorie
 from django.contrib.auth.models import User
 
 
@@ -16,8 +17,12 @@ def home(request):
             fromdate = request.POST.get('fromdate')
             todate = request.POST.get('todate')
             if fromdate == '' and todate == '':
-                messages.warning(request, "Desole,Veiller choisir les dates!")
+                messages.warning(request, "Désolé,Veillez choisir les dates!")
                 return render(request, "accueil.html")
+            elif todate<=fromdate:
+                messages.warning(request, "Désolé,Choissez la date de fin de séjour superieur à celle du début du séjour!")
+                return render(request, "accueil.html")
+
 
             if Reservation.objects.count() == 0:
                 searchResult = Chambre.objects.all()
@@ -73,6 +78,64 @@ def panel(request):
     return HttpResponse(response)
 
 
+@login_required
+def ajoutCategorie(request):
+    if not request.user.is_staff:
+        return HttpResponse("Accès refusée")
+
+    if request.method == 'POST':
+        form = AjoutCategorieForm(request.POST)
+        if not form.is_valid():
+            messages.warning(request, 'Veillez complétez tous les champs')
+        elif form.is_valid():
+            categorie = form.save(commit=False)
+
+
+            if Categorie.objects.filter(type=form.cleaned_data['type']).exists():
+
+                messages.info(request,'cette categorie existe déjà')
+            # elif Chambre.objects.all().count()==14:
+            #     messages.success(request, "Opps,Sky Lodge n'a que 14 Chambres")
+            else:
+                categorie.save()
+            messages.success(request, 'Categorie bien enregistrée')
+            return redirect('categorie')
+
+
+    else:
+        form = AjoutCategorieForm()
+
+    categories = Categorie.objects.all()  # listes de Chambre
+    total_categorie= len(categories)
+    if not categories:
+        messages.warning(request, "Pas de categorie trouvées")
+
+    return HttpResponse(
+        render(request, 'categorie.html', {'form': form, 'categorie': categories, 'total_categorie': total_categorie}))
+
+@login_required
+def update_categorie(request, pk):
+    categorie = Categorie.objects.get(pk=pk)
+    form = AjoutCategorieForm(instance=categorie)
+
+    if request.method == 'POST':
+        form = AjoutCategorieForm(request.POST, instance=categorie)
+        if not form.is_valid():
+            messages.warning(request, 'Veillez complétez tous les champs')
+        elif form.is_valid():
+            categorie = form.save(commit=False)
+            categorie.save()
+            messages.info(request, 'Bien Modifié')
+            return redirect('categorie')
+
+    return render(request, 'update_categorie.html', {'form': form})
+
+@login_required
+def delete_categorie(request, pk):
+    item = Categorie.objects.get(pk=pk)
+    item.delete()
+    messages.info(request, 'Categorie supprimée ')
+    return redirect('categorie')
 
 
 @login_required
@@ -94,6 +157,7 @@ def ajoutChambre(request):
             elif Chambre.objects.all().count()==14:
                 messages.success(request, "Opps,Sky Lodge n'a que 14 Chambres")
             else:
+
                 chambre.save()
             messages.success(request, 'Chambre bien enregistrée')
             return redirect('chambres')
@@ -142,8 +206,8 @@ def ajout_reservations(request, pk):
         form = AjoutReservationForm()
     #     listes de reservations
     reservations = Reservation.objects.all()
-    # if not reservations:
-    #     messages.warning(request, "Pas de Chambre trouves")
+    if reservations.count()==0:
+        messages.warning(request, "Pas de réservations trouvées")
     return render(request, 'reservation.html', {'form': form, 'reservations': reservations, 'chambre_id': chambre_id, })
 
 
@@ -162,7 +226,8 @@ def update_chambre(request, pk):
         elif form.is_valid():
             chambre = form.save(commit=False)
             chambre.save()
-            return redirect('home')
+            messages.info(request, 'Bien Modifié')
+            return redirect('chambres')
 
     return render(request, 'update_chambre.html', {'form': form})
 
@@ -184,8 +249,8 @@ def delete_chambre(request, pk):
 @login_required
 def listReservation(request):
     listReservations = Reservation.objects.all()
-    if listReservations == 0:
-        messages.warning(request, "Pas de Reservation trouves")
+    if listReservations.count()== 0:
+        messages.info(request, "Pas de Réservation trouvées")
     return render(request, 'listReservations.html', {'reservations': listReservations})
 
 
@@ -213,3 +278,4 @@ def delete_reservation(request, pk):
     item.delete()
     messages.info(request, 'Réservation annulée ')
     return redirect('list-reservations')
+

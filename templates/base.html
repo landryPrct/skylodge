@@ -21,8 +21,12 @@
     <link rel="stylesheet" href="{% static 'css/all.css' %}">
 
     <title>Sky Lodge </title>
+    <style>
+body{min-1}
+    </style>
 </head>
 <body data-bs-spy="scroll" data-bs-target=".navbar">
+
 {% block menu %}
 <!--navbar-->
 
@@ -45,7 +49,7 @@
 </header>
 
 <div class="container-fluid">
-  <div class="row">
+  <div class="row" >
     <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
       <div class="position-sticky pt-3">
         <ul class="nav flex-column">
@@ -68,25 +72,21 @@
             </a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="{% url 'categorie'%}">
+            <i class="fa-brands fa-font-awesome text-warning"></i>
+             Categories
+            </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="{% url 'list-user'%}">
               <i class="fa-solid fa-person"></i>
               Clients
             </a>
           </li>
 
-        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-          <span> Mon Profil</span>
-          <a class="link-secondary" href="#" aria-label="Add a new report">
-            <span data-feather="plus-circle"></span>
-          </a>
-        </h6>
 
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="file-text"></span>
-              Year-end sale
-            </a>
-          </li>
+
+
         </ul>
       </div>
     </nav>
@@ -171,25 +171,13 @@
 
 {% endblock content %}
 <!--footer-->
+
 {% block footer %}
- <footer class="py-4">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <p class="mb-0">Copyright © 2021-2022. landry</p>
-                </div>
-                <div class="col-md-6 text-md-end">
-<!--                    <div>-->
-<!--                        <a href="#"><i class='bx bxl-facebook-circle'></i></a>-->
-<!--                        <a href="#"><i class='bx bxl-twitter'></i></a>-->
-<!--                        <a href="#"><i class='bx bxl-dribbble'></i></a>-->
-<!--                        <a href="#"><i class='bx bxl-instagram'></i></a>-->
-<!--                        <a href="#"><i class='bx bxl-github'></i></a>-->
-<!--                    </div>-->
-                </div>
-            </div>
-        </div>
-    </footer>
+ <footer class="footer fixed-bottom mt-auto py-2 bg-light">
+  <div class="container text-center">
+    <span class="text-white fs-5">Sky Lodge Hotel</span>
+  </div>
+</footer>
 {% endblock footer %}
 </body>
 </html>
@@ -228,5 +216,8 @@
         }
 
     });
+
+
+
 </script>
 

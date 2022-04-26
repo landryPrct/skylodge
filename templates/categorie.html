@@ -2,14 +2,14 @@
 {% load  widget_tweaks %}
 
 
-{% block title %} Chambres{% endblock  %}
+{% block title %} Categories{% endblock  %}
 
 {% block content %}
 
-<div class="container col-xl-10 col-xxl-8 px-5 py-1">
-    <h3 class="mt-4"><i class="fa-solid fa-bed text-muted"></i> Listes des Chambres </h3>
+<div class="container col-xl-10 col-xxl-8 px-5 py-1 foo">
+    <h3 class="mt-4"><i class="fa-solid fa-bed text-muted"></i> Listes des Categories des Chambres  </h3>
     <hr class="text-primary ">
-    <button type="button" class="btn btn-main " data-aos="fade-up" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Nouveau chambre</button>
+    <button type="button" class="btn btn-main " data-aos="fade-up" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Nouvelle Categorie</button>
     <div class="row align-items-center g-lg-5 py-1 d-flex justify-content-center ">
 
       <div class="col-lg-12 text-center text-lg-start">
@@ -23,24 +23,24 @@
           <table class="table table-hover">
               <thead>
                 <tr>
-                  <th scope="col">Numero</th>
-                  <th scope="col">Type</th>
-                  <th scope="col">Status</th>
+                    <th scope="col">id</th>
+                  <th scope="col">categorie</th>
                   <th scope="col">Prix</th>
+
                 </tr>
               </thead>
               <tbody>
-              {% for chambre in chambres %}
+              {% for categorie in categorie %}
                 <tr>
-                  <th scope="row"><a  href=" ">{{chambre.chambre_numero}}</a></th>
-                  <td>{{chambre.categorie}}</td>
-                  <td>{{chambre.chambre_status}}</td>
-                  <td>{{chambre.prix}} Fbu</td>
+                    <th scope="row"><a  href=" ">{{categorie.id}}</a></th>
+                  <th scope="row"><a  href=" ">{{categorie.type}}</a></th>
+                  <td>{{categorie.prix}}</td>
+
                   <td>
-                    <a type="button" href="{% url 'update_chambre' chambre.id %}" class="text-primary" title="Editer"><i class="fa-solid fa-file-pen fs-4"></i></a>
+                    <a type="button" href="{% url 'update_categorie' categorie.id %}" class="text-primary" title="Editer"><i class="fa-solid fa-file-pen fs-4"></i></a>
                   </td>
                     <td>
-                    <a type="button" href="{% url 'del-chambre' chambre.id%}" class="text-danger " title="Supprimer"><i class="fa-regular fa-trash-can fs-4 "></i></a>
+                    <a type="button" href="{% url 'del-categorie' categorie.id%}" class="text-danger " title="Supprimer"><i class="fa-regular fa-trash-can fs-4 "></i></a>
                   </td>
                 </tr>
 

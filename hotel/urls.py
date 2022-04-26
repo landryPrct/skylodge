@@ -41,6 +41,10 @@ urlpatterns = [
     path('hotel/reservation/edit/<int:pk>', reservations_views.update_reservation, name='update_reservation'),
     path('hotel/reservation/delete/<int:pk>', reservations_views.delete_reservation, name='del-reservation'),
 
+    path('hotel/categories', reservations_views.ajoutCategorie, name='categorie'),
+    path('hotel/categorie/edit/<int:pk>', reservations_views.update_categorie, name='update_categorie'),
+    path('hotel/categorie/delete/<int:pk>', reservations_views.delete_categorie, name='del-categorie'),
+
     path('hotel/chambres', reservations_views.ajoutChambre, name='chambres'),
     path('hotel/chambre/edit/<int:pk>', reservations_views.update_chambre, name='update_chambre'),
     path('hotel/chambre/delete/<int:pk>', reservations_views.delete_chambre, name='del-chambre'),
