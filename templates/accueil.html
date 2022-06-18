@@ -74,10 +74,10 @@
               {% for data in data %}
                 <tr>
                   <th scope="row">{{data.chambre_numero}}</th>
-                    <th scope="row">{{data.chambre_type}}</th>
+                    <th scope="row">{{data.categorie.type}}</th>
                     <th scope="row">{{data.chambre_status}}</th>
-                    <th scope="row">{{data.prix}}</th>
-                    <th scope="row"><a class="btn btn-warning" href="{% url 'reservation' data.id %}">Reserver</a></th>
+                    <th scope="row">{{data.categorie.prix}}</th>
+                    <th scope="row"><a class="btn btn-warning" href="{% url 'reservation' data.id fromdate todate%}">Reserver</a></th>
 
                 </tr>
 

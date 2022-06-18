@@ -27,7 +27,7 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('users/', reservations_views.listUsers, name='list-user'),
     # path('home', reservations_views.ajout_reservations, name='home'),
-    path('skylodge/user/room/<int:pk>/reservation', reservations_views.ajout_reservations, name='reservation'),
+    path('skylodge/user/room/<int:pk>/reservation/<str:fromdate>/<str:todate>', reservations_views.ajout_reservations, name='reservation'),
 
     path('admin/', admin.site.urls),
     path('skylodge/signup/user', accounts_views.user_signup, name='user_signup'),

@@ -28,6 +28,7 @@ class Reservation(models.Model):
     fin_sejour = models.DateField(auto_now=False)
     chambre = models.ForeignKey(Chambre, on_delete=models.CASCADE)
     client = models.ForeignKey(User, on_delete=models.CASCADE)
+    status=models.BooleanField(default=True)
     date_operation = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

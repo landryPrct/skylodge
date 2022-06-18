@@ -7,8 +7,10 @@ from reservations.forms import AjoutChambreForm, AjoutReservationForm, EditReser
 from reservations.models import Chambre, Reservation,Categorie
 from django.contrib.auth.models import User
 
+from datetime import datetime
 
 def home(request):
+
     if request.user.is_staff:
         return redirect('panel')
     else:
@@ -46,7 +48,7 @@ def home(request):
                 messages.warning(request, "Désolé,les chambres ne sont pas disponibles pour cette date!")
             else:
                 messages.success(request, str(count_result) + " disponibles pour cette date!!")
-            return render(request, 'accueil.html', {'data': searchResult, 'count': count_result})
+            return render(request, 'accueil.html', {'data': searchResult, 'count': count_result,"fromdate":fromdate, "todate":todate})
         else:
             return render(request, 'accueil.html')
 
@@ -185,11 +187,30 @@ def listUsers(request):
 
 
 @login_required
-def ajout_reservations(request, pk):
+def ajout_reservations(request, pk, fromdate, todate):
+
     if request.user.is_staff:
         messages.warning(request, "Ouff! vous n'est pas un Client.. connectez-vous")
         return render(request, 'accueil.html')
-    chambre_id = get_object_or_404(Chambre, pk=pk)
+    chambre = get_object_or_404(Chambre, pk=pk)
+    categorie=get_object_or_404(Categorie,chambre=chambre.id)
+
+    fromdate=fromdate
+    todate=todate
+       
+    
+    
+    # convert string to date object
+    d1 = datetime.strptime(fromdate, "%Y-%m-%d")
+    d2 = datetime.strptime(todate, "%Y-%m-%d")
+
+
+    # difference between dates in timedelta
+    delta = d2 - d1
+
+
+
+
 
     if request.method == 'POST':
         form = AjoutReservationForm(request.POST)
@@ -199,6 +220,10 @@ def ajout_reservations(request, pk):
             reservation = form.save(commit=False)
             reservation.client = request.user
             reservation.chambre = chambre_id
+            reservation.debut_sejour=fromdate
+            reservation.fin_sejour=todate
+
+            
             reservation.save()
             messages.success(request, 'Félicitations , bien réserver')
             return redirect('list-reservations')
@@ -208,8 +233,8 @@ def ajout_reservations(request, pk):
     reservations = Reservation.objects.all()
     if reservations.count()==0:
         messages.warning(request, "Pas de réservations trouvées")
-    return render(request, 'reservation.html', {'form': form, 'reservations': reservations, 'chambre_id': chambre_id, })
-
+    ctx = {'form': form,'reservations': reservations, 'chambre': chambre, "fromdate":fromdate,"todate":todate,"delta":delta,"categorie":categorie}
+    return render(request, 'reservation.html',ctx )
 
 
 
@@ -270,7 +295,7 @@ def update_reservation(request, pk):
             reservation.save()
             return redirect('home')
 
-    return render(request, 'update_reservation.html', {'form': form, 'reservation': reservation})
+    return render(request, 'listReservation.html', {'form': form, 'reservation': reservation})
 
 @login_required
 def delete_reservation(request, pk):

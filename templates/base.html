@@ -18,9 +18,10 @@
 
     <link rel="stylesheet" href="{% static 'css/line-icons.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <link rel="stylesheet" href="{% static 'css/all.css' %}">
 
-    <title>Sky Lodge </title>
+     <link rel="stylesheet" href="{% static 'css/line-awesome.min.css' %}">
+
+    <title>Sky Lodge  </title>
     <style>
 body{min-1}
     </style>
@@ -32,7 +33,7 @@ body{min-1}
 
 {% if user.is_staff and user.is_superuser %}
 <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="{% url 'home'%}">Hôtel Sky Lodge</a>
+  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="{% url 'home'%}">Hôtel Sky Lodge</i></a>
   <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -96,7 +97,7 @@ body{min-1}
 
     <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-white" data-aos="fade-down">
         <div class="container">
-            <a class="navbar-brand" href="#">Sky Lodge Hôtel</a>
+            <a href="{% url 'home'%}" class="navbar-brand">Sky Lodge Hôtel </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -104,7 +105,7 @@ body{min-1}
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'home' %}#accueil">Accueil</a>
+                        <a class="nav-link" href="{% url 'home' %}#accueil"> <i class="las la-home fs-4"></i> Accueil</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'home' %}#services">Services</a>
@@ -175,7 +176,7 @@ body{min-1}
 {% block footer %}
  <footer class="footer fixed-bottom mt-auto py-2 bg-light">
   <div class="container text-center">
-    <span class="text-white fs-5">Sky Lodge Hotel</span>
+    <a href="{% url 'home'%}"  class="text-white fs-5">Sky Lodge Hotel</a>
   </div>
 </footer>
 {% endblock footer %}

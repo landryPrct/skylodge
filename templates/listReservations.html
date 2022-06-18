@@ -44,7 +44,11 @@
                   <td>{{res.fin_sejour}}</td>
                   <td>{{res.chambre_id}}</td>
 
-                  <td class="text-success"><i>{{res.date_operation}}</i> </td>
+                  <td class="text-success"><i>{{res.date_operation}}</i> </td> 
+                   <td class="text-success"><i>{{res.status}}
+                     
+
+                   </i> </td>
                        {% if  user.is_staff %}
                   <td class="text-muted"><i>{{res.client.username}}</i> </td>
                   <td><a href="{% url 'update_reservation' res.id %}" title="Editer"><i class=" text-primary fa-solid fa-pen fs-3"></i></a></td>
