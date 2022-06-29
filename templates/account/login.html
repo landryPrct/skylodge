@@ -4,6 +4,7 @@
 {% load static %}
 {% load account socialaccount %}
 
+
 {% block head_title %}{% trans "Sign In" %}{% endblock %}
 
 {% block content %}
@@ -11,24 +12,23 @@
  <section id="accueil" class="bg-cover hero-section">
         <div class="overlay"></div>
         <div class="container text-white text-center">
-            <div class="row">
+            <div class="row justify-content-center">
 
-
-                <div class="row justify-content-center">
+                
                   <div class="text-center">
                 <h1>{% trans "Sign In" %}</h1>
                     </div>
-                <div class="py-4 m-4 col-md-4 ">
-                  <div class="text-center">
+                <div class=" col-md-4 ">
+                 <!--  <div class="text-center">
 
 
                 {% get_providers as socialaccount_providers %}
 
-                {% if socialaccount_providers %}
-                <p>{% blocktrans with site.name as site_name %}Veuillez vous connecter avec l'un de vos comptes tiers existants. Ou, <a class="text-danger" href="{{ signup_url }}">Créez un compte</a>
-                {{ site_name }} puis connectez-vous:{% endblocktrans %}</p>
-
-                <div class="socialaccount_ballot">
+                {% if socialaccount_providers %} --> 
+                <!-- <p>{% blocktrans with site.name as site_name %},
+                {{ site_name }}   {% endblocktrans %}</p>
+ -->
+                <!-- <div class="socialaccount_ballot">
 
                   <ul class="socialaccount_providers ">
 
@@ -45,9 +45,12 @@
                 <p>{% blocktrans %}If you have not created an account yet, then please
                 <a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
                 {% endif %}
-                </div>
-                  </div>
-                  <div class="py-1 m-4 col-md-4 ">
+                </div> -->
+
+              <hr>
+          <a href="{% provider_login_url 'facebook' method='oauth2' %}"><i class="fab fa-facebook-f fs-1"></i></a> ou  <a href="{% provider_login_url 'google' method='oauth2' %}"><i class="fab fa-google fs-1"></i></a>
+          <hr>
+                  
 
                 <form class="login p-4 p-md-5 rounded-3 bg-info" method="POST" action="{% url 'account_login' %}">
                   {% csrf_token %}
@@ -58,11 +61,13 @@
                   <div class="text-center">
                    <button class="primaryAction btn btn-main" type="submit">{% trans "Sign In" %}</button>
                  <p> <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a></p>
+                 <p> <a class="text-danger text-center" href="{{ signup_url }}">Créez un compte</a></p>
                 </div>
                 </form>
+
                 </div>
 
-                  </div>
+                  
             </div>
         </div>
     </section>

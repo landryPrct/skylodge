@@ -2,6 +2,8 @@
 {% load crispy_forms_tags %}
 {% load i18n %}
 
+{% load  socialaccount%}
+
 {% block head_title %}{% trans "Signup" %}{% endblock %}
 
 {% block content %}
@@ -16,8 +18,10 @@
               <div class="col-md-5 ">
                 <div class="text-center">
               <h1>{% trans "Sign Up" %}</h1>
-
-              <p>{% blocktrans %}Avez vous déjà un compte?  <a class="text-danger" href="{{ login_url }}">Cliquez ici </a>.pour vous connecter{% endblocktrans %}</p>
+                <hr>
+          <a href="{% provider_login_url 'facebook' method='oauth2' %}"><i class="fab fa-facebook-f fs-1"></i></a> ou  <a href="{% provider_login_url 'google' method='oauth2' %}"><i class="fab fa-google fs-1"></i></a>
+          <hr>
+              
                 </div>
                 <div class="p-3 bg-info rounded-3" style="bg-info"   >
               <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
@@ -26,7 +30,8 @@
                 {% if redirect_field_value %}
                 <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
                 {% endif %}
-                <button type="submit" class="btn btn-main">{% trans "Sign Up" %} &raquo;</button>
+                <button type="submit" class="btn m-2 btn-main">{% trans "Sign Up" %} &raquo;</button>
+                <p>{% blocktrans %}Avez vous déjà un compte?  <a class="text-danger" href="{{ login_url }}">Cliquez ici </a>.pour vous connecter{% endblocktrans %}</p>
               </form>
 
             </div>

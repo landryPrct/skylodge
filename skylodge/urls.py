@@ -37,6 +37,9 @@ urlpatterns = [
 
     path('skylodge/staff/panel', reservations_views.panel, name='panel'),
 
+     path('skylodge/historique', reservations_views.historiqueReservations, name='history'),
+      path('skylodge/reservation/delete/<int:pk>', reservations_views.delete_history, name='del-history'),
+
     path('skylodge/reservations', reservations_views.listReservation, name='list-reservations'),
     path('skylodge/reservation/edit/<int:pk>', reservations_views.update_reservation, name='update_reservation'),
     path('skylodge/reservation/delete/<int:pk>', reservations_views.delete_reservation, name='del-reservation'),

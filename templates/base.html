@@ -18,8 +18,10 @@
 
     <link rel="stylesheet" href="{% static 'css/line-icons.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-
+    <link rel="stylesheet" href="{% static 'css/all.min.css' %}">
      <link rel="stylesheet" href="{% static 'css/line-awesome.min.css' %}">
+
+
 
     <title>Sky Lodge  </title>
     <style>
@@ -78,6 +80,12 @@ body{min-1}
              Categories
             </a>
           </li>
+           <li class="nav-item">
+            <a class="nav-link" href="{% url 'history'%}">
+            <i class="fa-brands fa-font-awesome text-warning"></i>
+             Historique
+            </a>
+          </li>
           <li class="nav-item">
             <a class="nav-link" href="{% url 'list-user'%}">
               <i class="fa-solid fa-person"></i>
@@ -120,6 +128,9 @@ body{min-1}
 
                           <li class="nav-item">
                           <a class="nav-link" href="{% url 'list-reservations'%}">Mes reservations</a>
+                        </li>
+                         <li class="nav-item">
+                          <a class="nav-link" href="{% url 'history'%}">Historique</a>
                         </li>
                       {% endif %}
                         <li class="nav-item">
@@ -183,6 +194,8 @@ body{min-1}
 </body>
 </html>
  <!-- Option 1: Bootstrap Bundle with Popper -->
+
+    <script type="text/javascript" src="{% static 'js/all.min.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
     </script>

@@ -17,18 +17,22 @@ class Chambre(models.Model):
     )
     categorie = models.ForeignKey(Categorie, on_delete=models.CASCADE)
     chambre_status = models.CharField(max_length=20, choices=CHAMBRE_STATUS)
-    chambre_numero = models.IntegerField()
+    chambre_numero = models.IntegerField(unique=True)
 
     def __str__(self):
         return str(self.chambre_numero)
 
 
 class Reservation(models.Model):
+    RES_STATUS = (
+        ("True","True"),
+        ("False","False")
+        )
     debut_sejour = models.DateField(auto_now=False)
     fin_sejour = models.DateField(auto_now=False)
     chambre = models.ForeignKey(Chambre, on_delete=models.CASCADE)
     client = models.ForeignKey(User, on_delete=models.CASCADE)
-    status=models.BooleanField(default=True)
+    status=models.CharField(max_length=100,choices=RES_STATUS,default=True)
     date_operation = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

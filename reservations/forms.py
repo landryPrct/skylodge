@@ -41,19 +41,23 @@ class EditReservationForm(forms.ModelForm):
 
     #     attrs={'class': 'form-control',
     #            'placeholder': 'Select a date',
-    #            'type': 'text'
+    #            'type': 'text',
+    #            'disabled':"True",
     #            }
     # ))
     # fin_sejour = forms.DateField(required=True, widget=forms.DateInput(
 
     #     attrs={'class': 'form-control',
     #            'placeholder': 'Select a date',
-    #            'type': 'text'
+    #            'type': 'text',
+    #            'disabled':"True",
     #            }
 
     # ))
-    status=forms.BooleanField()
+
+
+   
 
     class Meta:
         model = Reservation
-        fields = ['status']
+        fields = [ 'status']

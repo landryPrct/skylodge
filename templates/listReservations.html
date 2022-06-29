@@ -10,6 +10,7 @@
 <div class="container col-xl-10 col-xxl-8  ">
 <h4><i class="fa-solid fa-bookmark text-success"></i> Tous les reservations</h4>
     <hr class="text-primary ">
+  <a class="btn btn-main flex-end" href="{% url 'history' %}">Historiques</a>
 
     <div class="row align-items-center g-lg-5 d-flex justify-content-center">
       <div class="col-lg-12 text-center text-lg-start">
@@ -22,6 +23,7 @@
                   <th scope="col">Fin séjour</th>
                   <th scope="col">Chambre</th>
                   <th scope="col">Réserver le</th>
+                   <th scope="col">Status </th>
                     {% if  user.is_staff %}
                   <th scope="col">Par</th>
                   <th scope="col">Editer</th>
@@ -42,18 +44,31 @@
                 <tr>
                   <th scope="row">{{res.debut_sejour}}</th>
                   <td>{{res.fin_sejour}}</td>
-                  <td>{{res.chambre_id}}</td>
+                  <td>{{res.chambre.chambre_numero}}</td>
 
                   <td class="text-success"><i>{{res.date_operation}}</i> </td> 
-                   <td class="text-success"><i>{{res.status}}
-                     
 
-                   </i> </td>
+
+                   <td class="text-success">
+
+                       {% if  res.status != "True" %}
+                          
+                          Annulé
+
+                        {% else %}
+                      
+                          Active
+
+                      {% endif %}
+
+                    </td>
                        {% if  user.is_staff %}
                   <td class="text-muted"><i>{{res.client.username}}</i> </td>
-                  <td><a href="{% url 'update_reservation' res.id %}" title="Editer"><i class=" text-primary fa-solid fa-pen fs-3"></i></a></td>
+                   {% endif %}
+                  <td><a href="{% url 'update_reservation' res.id %}" title="Editer"><i class="lar la-times-circle fs-3 text-danger"></i></a></td>
+                    {% if  user.is_staff %}
+                  <td><a href="{% url 'del-reservation' res.id %}" title="Annuler"><i class="las la-trash fs-3 text-danger"></i></a></td>
                     {% endif %}
-                  <td><a href="{% url 'del-reservation' res.id %}" title="Annuler"><i class=" text-danger fa-solid fa-xmark fs-3"></i></a></td>
                    </tr>
                 {% endif %}
               {% endfor %}
