@@ -77,7 +77,7 @@ TEMPLATES = [
     },
 ]
 
-SITE_ID = 5
+SITE_ID = 4
 
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
