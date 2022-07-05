@@ -7,20 +7,22 @@ from reservations.forms import AjoutChambreForm, AjoutReservationForm, EditReser
 from reservations.models import Chambre, Reservation,Categorie
 from django.contrib.auth.models import User
 
+from datetime import datetime,date
 
 def home(request):
+
     if request.user.is_staff:
-        return redirect('panel')
+        return redirect('/admin')
     else:
         booking = []
         if request.method == 'POST':
             fromdate = request.POST.get('fromdate')
             todate = request.POST.get('todate')
             if fromdate == '' and todate == '':
-                messages.warning(request, "Désolé,Veillez choisir les dates!")
+                messages.info(request, "Désolé,les champs sont vide !")
                 return render(request, "accueil.html")
             elif todate<=fromdate:
-                messages.warning(request, "Désolé,Choissez la date de fin de séjour superieur à celle du début du séjour!")
+                messages.info(request, "Désolé, Veuillez choisir correctement les dates !")
                 return render(request, "accueil.html")
 
 
@@ -31,22 +33,30 @@ def home(request):
                 for each_reservation in Reservation.objects.all():
                     if str(each_reservation.debut_sejour) < str(fromdate) and str(each_reservation.fin_sejour) < str(
                             todate):
-                        pass
+                             pass
                     elif str(each_reservation.debut_sejour) > str(fromdate) and str(
-                            each_reservation.fin_sejour) > str(todate):
-                        pass
+                            each_reservation.fin_sejour) > str(todate) :
+                             pass
+
+                    elif (each_reservation.status !="True"):
+                             pass
                     else:
                         booking.append(each_reservation.chambre.id)
                 searchResult = Chambre.objects.all().exclude(id__in=booking)
-                # SQL searchResult = Chambre.objects.raw(
-                #     'SELECT  "c"."id","c"."prix","c"."chambre_status","c"."chambre_type" FROM "reservations_chambre" AS "c" WHERE "c"."id" NOT IN ( SELECT "r"."chambre_id" FROM "reservations_reservation" AS "r" WHERE "' + fromdate + '" BETWEEN "r"."debut_sejour"  AND "r"."fin_sejour" OR "' + todate + '" BETWEEN "r"."debut_sejour"  AND "r"."fin_sejour" AND "r"."debut_sejour" BETWEEN "' + fromdate + '" AND "' + todate + '" AND "r"."fin_sejour" BETWEEN "' + fromdate + '" AND "' + todate + '") ORDER BY "c"."id"')
+                
+
+
 
             count_result = searchResult.count()
+
+
+
+
             if count_result == 0:
-                messages.warning(request, "Désolé,les chambres ne sont pas disponibles pour cette date!")
+                messages.info(request, "Désolé,Aucune chambre disponibles pour cette période!")
             else:
-                messages.success(request, str(count_result) + " disponibles pour cette date!!")
-            return render(request, 'accueil.html', {'data': searchResult, 'count': count_result})
+                messages.success(request, str(count_result) + " Chambre(s) disponible(s) pour cette période!!")
+            return render(request, 'accueil.html', {'data': searchResult, 'count': count_result,"fromdate":fromdate, "todate":todate})
         else:
             return render(request, 'accueil.html')
 
@@ -185,11 +195,30 @@ def listUsers(request):
 
 
 @login_required
-def ajout_reservations(request, pk):
+def ajout_reservations(request, pk, fromdate, todate):
+
     if request.user.is_staff:
         messages.warning(request, "Ouff! vous n'est pas un Client.. connectez-vous")
         return render(request, 'accueil.html')
-    chambre_id = get_object_or_404(Chambre, pk=pk)
+    chambre = get_object_or_404(Chambre, pk=pk)
+    categorie=get_object_or_404(Categorie,chambre=chambre.id)
+
+    fromdate=fromdate
+    todate=todate
+       
+    
+    
+    # convert string to date object
+    d1 = datetime.strptime(fromdate, "%Y-%m-%d")
+    d2 = datetime.strptime(todate, "%Y-%m-%d")
+
+
+    # difference between dates in timedelta
+    delta = d2 - d1
+
+
+
+
 
     if request.method == 'POST':
         form = AjoutReservationForm(request.POST)
@@ -198,7 +227,11 @@ def ajout_reservations(request, pk):
         elif form.is_valid():
             reservation = form.save(commit=False)
             reservation.client = request.user
-            reservation.chambre = chambre_id
+            reservation.chambre = chambre
+            reservation.debut_sejour=fromdate
+            reservation.fin_sejour=todate
+
+            
             reservation.save()
             messages.success(request, 'Félicitations , bien réserver')
             return redirect('list-reservations')
@@ -208,8 +241,8 @@ def ajout_reservations(request, pk):
     reservations = Reservation.objects.all()
     if reservations.count()==0:
         messages.warning(request, "Pas de réservations trouvées")
-    return render(request, 'reservation.html', {'form': form, 'reservations': reservations, 'chambre_id': chambre_id, })
-
+    ctx = {'form': form,'reservations': reservations, 'chambre': chambre, "fromdate":fromdate,"todate":todate,"delta":delta,"categorie":categorie}
+    return render(request, 'reservation.html',ctx )
 
 
 
@@ -226,7 +259,7 @@ def update_chambre(request, pk):
         elif form.is_valid():
             chambre = form.save(commit=False)
             chambre.save()
-            messages.info(request, 'Bien Modifié')
+            messages.info(request, 'Bien annulée')
             return redirect('chambres')
 
     return render(request, 'update_chambre.html', {'form': form})
@@ -248,29 +281,39 @@ def delete_chambre(request, pk):
 
 @login_required
 def listReservation(request):
-    listReservations = Reservation.objects.all()
+    listReservations = Reservation.objects.all().filter(status= "True")
     if listReservations.count()== 0:
         messages.info(request, "Pas de Réservation trouvées")
     return render(request, 'listReservations.html', {'reservations': listReservations})
+
+@login_required
+def historiqueReservations(request):
+    history = Reservation.objects.all().filter(status="False")
+    if history.count()== 0:
+        messages.info(request, "Pas Historique ! ")
+    return render(request, 'historique.html', {'history': history})
+
+
 
 
 
 
 @login_required
 def update_reservation(request, pk):
-    reservation = Reservation.objects.get(pk=pk)
-    form = EditReservationForm(instance=reservation)
+    res = Reservation.objects.get(pk=pk)
+    form = EditReservationForm(instance=res)
 
-    if not form.is_valid():
-        messages.warning(request, 'Veillez complétez tous les champs')
-    elif request.method == 'POST':
-        form = EditReservationForm(request.POST, instance=reservation)
-        if form.is_valid():
+    if request.method == 'POST':
+        form = EditReservationForm(request.POST, instance=res)
+        if not form.is_valid():
+            messages.warning(request, 'Veillez complétez tous les champs')
+        elif form.is_valid():
             reservation = form.save(commit=False)
             reservation.save()
-            return redirect('home')
+            messages.info(request, 'Bien Modifié')
+            return redirect('list-reservations')
 
-    return render(request, 'update_reservation.html', {'form': form, 'reservation': reservation})
+    return render(request, 'update_reservation.html', {'form': form,"res":res,})
 
 @login_required
 def delete_reservation(request, pk):
@@ -278,4 +321,14 @@ def delete_reservation(request, pk):
     item.delete()
     messages.info(request, 'Réservation annulée ')
     return redirect('list-reservations')
+
+
+@login_required
+def delete_history(request, pk):
+    item = Reservation.objects.get(pk=pk)
+    item.delete()
+    messages.info(request, 'Historique suprimé ')
+    return redirect('history')
+
+
 

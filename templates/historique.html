@@ -1,0 +1,77 @@
+{% extends 'base.html'%}
+{% load  widget_tweaks %}
+
+
+{% block title %} Chambres{% endblock  %}
+
+{% block content %}
+<div class="col">
+<section class="">
+<div class="container col-xl-10 col-xxl-8  ">
+<h4><i class="las la-history la-3x text-success"></i>Historiques</h4>
+    <hr class="text-primary ">
+
+    <div class="row align-items-center g-lg-5 d-flex justify-content-center">
+
+                 {% for message in messages %}
+                        <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
+                        {{message}}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+      
+                     {% for his in history %}
+
+                 {% if  user.is_staff or his.client == user %}
+                   
+
+      <div class="col-lg-4 text-center  text-lg-start">
+                <div class="card shadow-sm bg-success bg-opacity-10">
+                  <div class="card-body border-top border-4 border-primary ">
+                  
+             
+
+               
+                  <span><b>Durée : </b>{{his.debut_sejour}} - {{his.fin_sejour}}</span><br>
+                
+                  <span><b>Type : {{his.chambre.categorie.type}} </b></span><br>
+                  <span class="text-success"><i>{{his.date_operation}}</i> </span> <br>
+                   <span class="text-danger">
+                       {% if  his.status != "True" %}
+                          
+                        <b>STATUS :</b>  Annulé
+
+                        {% else %}
+                      
+                          Active
+
+                      {% endif %}
+
+                    </span><br><br>
+                       {% if  user.is_staff %}
+                  <span class="text-muted"><i>{{his.client.username}}</i> </span>
+                   {% endif %}
+                 
+                    {% if  user.is_staff %}
+                  <a href="{% url 'del-history' his.id %}" title="Supprimer"><i class="las la-trash fs-3 text-danger"></i></a>
+                    {% endif %}
+                  
+               
+             
+              
+             </div>
+          </div>
+
+      </div>
+      {% endif %}
+      {% endfor %}
+  
+    </div>
+  </div>
+
+</section>
+</div>
+<!-- Modal -->
+
+
+{% endblock content%}

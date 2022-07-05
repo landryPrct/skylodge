@@ -16,20 +16,20 @@ class AjoutChambreForm(forms.ModelForm):
 
 
 class AjoutReservationForm(forms.ModelForm):
-    debut_sejour = forms.DateField(required=True, widget=forms.DateInput(
-        format=('%d/%m/%y'),
-        attrs={'class': 'form-control',
-               'placeholder': 'Select a date',
-               'type': 'date'
-               }
-    ))
-    fin_sejour = forms.DateField(required=True, widget=forms.DateInput(
-        format=('%d/%m/%y'),
-        attrs={'class': 'form-control',
-               'placeholder': 'Select a date',
-               'type': 'date'
-               }
-    ))
+    # debut_sejour = forms.DateField(required=True, widget=forms.DateInput(
+    #     format=('%d/%m/%y'),
+    #     attrs={'class': 'form-control',
+    #            'placeholder': 'Select a date',
+    #            'type': 'date'
+    #            }
+    # ))
+    # fin_sejour = forms.DateField(required=True, widget=forms.DateInput(
+    #     format=('%d/%m/%y'),
+    #     attrs={'class': 'form-control',
+    #            'placeholder': 'Select a date',
+    #            'type': 'date'
+    #            }
+    # ))
 
     class Meta:
         model = Reservation
@@ -37,21 +37,27 @@ class AjoutReservationForm(forms.ModelForm):
 
 
 class EditReservationForm(forms.ModelForm):
-    debut_sejour = forms.DateField(required=True, widget=forms.DateInput(
+    # debut_sejour = forms.DateField(required=True, widget=forms.DateInput(
 
-        attrs={'class': 'form-control',
-               'placeholder': 'Select a date',
-               'type': 'text'
-               }
-    ))
-    fin_sejour = forms.DateField(required=True, widget=forms.DateInput(
+    #     attrs={'class': 'form-control',
+    #            'placeholder': 'Select a date',
+    #            'type': 'text',
+    #            'disabled':"True",
+    #            }
+    # ))
+    # fin_sejour = forms.DateField(required=True, widget=forms.DateInput(
 
-        attrs={'class': 'form-control',
-               'placeholder': 'Select a date',
-               'type': 'text'
-               }
-    ))
+    #     attrs={'class': 'form-control',
+    #            'placeholder': 'Select a date',
+    #            'type': 'text',
+    #            'disabled':"True",
+    #            }
+
+    # ))
+
+
+   
 
     class Meta:
         model = Reservation
-        fields = ['debut_sejour', 'fin_sejour']
+        fields = [ 'status']

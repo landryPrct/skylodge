@@ -27,7 +27,7 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('users/', reservations_views.listUsers, name='list-user'),
     # path('home', reservations_views.ajout_reservations, name='home'),
-    path('skylodge/user/room/<int:pk>/reservation', reservations_views.ajout_reservations, name='reservation'),
+    path('skylodge/user/room/<int:pk>/reservation/<str:fromdate>/<str:todate>', reservations_views.ajout_reservations, name='reservation'),
 
     path('admin/', admin.site.urls),
     path('skylodge/signup/user', accounts_views.user_signup, name='user_signup'),
@@ -36,6 +36,9 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
 
     path('skylodge/staff/panel', reservations_views.panel, name='panel'),
+
+     path('skylodge/historique', reservations_views.historiqueReservations, name='history'),
+      path('skylodge/reservation/delete/<int:pk>', reservations_views.delete_history, name='del-history'),
 
     path('skylodge/reservations', reservations_views.listReservation, name='list-reservations'),
     path('skylodge/reservation/edit/<int:pk>', reservations_views.update_reservation, name='update_reservation'),

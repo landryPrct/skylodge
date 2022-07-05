@@ -7,49 +7,90 @@
 {% block content %}
 <section class="bg-cover text-dark">
 <div class="container col-xl-10 col-xxl-8 px-4 py-1">
-    <h1>Réservation </h1>
+    <h1><i class="las la-calendar-check fs-1  text-success"></i>Réservation </h1>
     <hr class="text-primary ">
+
+
+
+
+
     <div class="row align-items-center g-lg-5 py-1">
+      <div class="col-md-10 mx-auto col-lg-8 ">
+       
 
-      <div class="col-lg-4 text-center  text-lg-start">
-        <p class="fs-2">Merci! Poursuit votre réservation :<u>{{user.username }}</u></p>
+          <div class="card bg-success bg-opacity-10">
+           
+            <div class="card-body shadow-lg border-top border-4 border-success">
+              <div class="row">
+                <div class="col">
+                  
 
-        <p> Vous réserver la chambre numéro :{{chambre_id}}</p>
+            
+              <div class="confetti">
+                <div class="confetti-piece"></div>
+                <div class="confetti-piece"></div>
+                <div class="confetti-piece"></div>
+                <div class="confetti-piece"></div>
+                <div class="confetti-piece"></div>
+                <div class="confetti-piece"></div>
+                <div class="confetti-piece"></div>
+                <div class="confetti-piece"></div>
+                <div class="confetti-piece"></div>
+                <div class="confetti-piece"></div>
+                <div class="confetti-piece"></div>
+                <div class="confetti-piece"></div>
+                <div class="confetti-piece"></div>
+            </div>
+              
+            <i class="las la-gifts fs-2">  Félicitation ...{{ user.username }}</i>
+              <hr>
 
-      </div>
-      <div class="col-md-10 mx-auto col-lg-8">
-       <form class="p-4 p-md-5 border rounded-3 text-dark"  style="background-color:rgba(34,55,67,.2)" method="post" novalidate>
+
+              <p class="fs-6 text-muted"><i>Vous avez choisis une réservation :</i> </p>
+              <p><b> Nombre de jours : </b>{{ delta.days }}
+                {% if delta.days == 1 %}
+                      jour
+                {% else %}
+                    jours
+                {% endif%}
+                </p>
+
+              <p><i class="las la-calendar-minus fs-4 text-success"></i><b> Début : </b>{{ fromdate }}</p>
+              <p><i class="lar la-calendar-plus fs-4 text-success"></i><b> Fin :</b> {{ todate }}</p>
+              <p> <i class="las la-door-closed fs-4 text-success"></i><b>Chambre N* : </b>{{ chambre.chambre_numero }}</p>
+              <p> <i class="las la-money-bill fs-4 text-success"></i><b> Prix : </b>{{ categorie.prix }} BIF</p>
+
+              {{ prix }}
+              <p class="text-center "> Confirmer la réservation ?</p>
+            </div>
+            <div class="col  border-left " >
+                  <h1 class="display-3  mt-5 pt-5   d-sm-none d-md-block">{{ categorie.type }}</h1>
+                </div>
+          </div> 
+          </div>
+
+                
+       </div>
+
+         
+
+                  
+
+
+       <form class="p-4 "  method="post" novalidate>
               {% csrf_token %}
-           <h6>Choisser votre durée de séjour</h6>
-                    {% if form.non_field_errors %}
-                      <div class="alert alert-danger" role="alert">
-                        {% for error in form.non_field_errors %}
-                          <p>{% if forloop.last %} class="mb-0"{% endif %}>{{ error }}</p>
-                        {% endfor %}
-                      </div>
-                    {% endif %}
 
-                    {% for field in form %}
-                      <div class="form-floating ">
 
-                        {% render_field field class="form-control bg-light text-dark" id='floatingInput'  %}
-                            {{ field.label_tag }}
-                        {% for error in field.errors %}
-                        <div class="invalid-feedback">
-                            {{ error }}
-                          </div>
-                        {% endfor %}
-<!--                        {% if field.help_text %}-->
-<!--                          <small class="form-text text-muted">-->
-<!--                            {{ field.help_text|safe }}-->
-<!--                          </small>-->
-<!--                        {% endif %}-->
-                      </div>
-                    {% endfor %}
-          <button class="w-100 btn btn-lg btn-main" type="submit" >Enregistrer</button>
-          <hr class="my-4">
+                   <input type="hidden"  value='{{ fromdate }}' name="debut_sejour" >
+                   <input type="hidden"  value='{{ todate }}' name="fin_sejour" >
+
+          <button class="w-100 btn btn-lg btn-main" type="submit" >Oui, Réserver</button>
+          
 
         </form>
+        <a href="{% url 'home' %}" class="btn btn-warning m-2"> Non, Annuler</a>
+          <hr class="my-4">
+
       </div>
     </div>
   </div>
