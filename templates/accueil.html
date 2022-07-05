@@ -9,10 +9,17 @@
         <div class="overlay"></div>
         <div class="container text-white text-center">
             <div class="row">
+<<<<<<< HEAD
+                <div class="col-12">
+                    <h1 class="display-4" data-aos="zoom-in">Bienvenus, Sky Lodge vous réserve un accueil Chaleureux</h1>
+                    <p class="my-4" data-aos="fade-up">Cliquez sur le lien dessous pour vérifier les dates disponibles  afin de réserver </p>
+                    <a href="#disponibilite" data-aos="fade-up" class="btn btn-main">Rérserver</a>
+=======
                 <div class="col-sm-6">
                     <h1 class="display-4" data-aos="zoom-in">Bienvenus, Sky Lodge vous réserve une accueil Chaleureuse</h1>
                     <p class="my-4" data-aos="fade-up">Vérifier les dates disponibles  afin de réserver </p>
                     
+>>>>>>> origin/master
                 </div>
                  <div class="col-sm-6" data-aos="fade-up">
                      
@@ -44,7 +51,7 @@
                             <textarea name="" id="" cols="30" rows="4" class="form-control" placeholder="Message"></textarea>
                         </div> -->
                         <div class="text-center">
-                            <button class="btn btn-main" name="submit" type="submit">Vérifier</button>
+                            <button class="btn btn-main" name="submit" type="submit">Vérifier </button>
                         </div>
                     </form>
 
@@ -63,7 +70,11 @@
               {% for data in data %}
                 <tr>
                   <th scope="row">{{data.chambre_numero}}</th>
+<<<<<<< HEAD
+                    <th scope="row">{{data.categorie}}</th>
+=======
                     <th scope="row">{{data.categorie.type}}</th>
+>>>>>>> origin/master
                     <th scope="row">{{data.chambre_status}}</th>
                     <th scope="row">{{data.categorie.prix}}</th>
                     <th scope="row"><a class="btn btn-warning" href="{% url 'reservation' data.id fromdate todate%}">Reserver</a></th>
