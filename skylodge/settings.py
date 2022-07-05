@@ -17,7 +17,7 @@ SECRET_KEY = 'django-insecure-+mxcychl_+l)!v$e7av^8h3!dg8&lj+%ao+#oubxa@j-ogl5ak
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['skylodge.ubuviz.com']
+ALLOWED_HOSTS = ['skylodge.ubuviz.com','localhost','127.0.0.1']
 
 # Application definition
 
