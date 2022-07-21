@@ -61,7 +61,7 @@ class EditReservationForm(forms.ModelForm):
     class Meta:
         model = Reservation
         fields = [ 'status']
-        
+
 
     class iHelaClientAccountForm(forms.Form):
-    account = forms.charfield()
+        account = forms.charfield()
