@@ -57,9 +57,9 @@ MIDDLEWARE = [
 
     ]
 
-    ROOT_URLCONF = 'skylodge.urls'
+ROOT_URLCONF = 'skylodge.urls'
 
-    TEMPLATES = [
+TEMPLATES = [
     {
     'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, 'templates')],  # le chemin de template
@@ -77,11 +77,11 @@ MIDDLEWARE = [
         },
         ]
 
-        SITE_ID = 4
+SITE_ID = 4
 
 
-        CRISPY_TEMPLATE_PACK = 'bootstrap4'
-        AUTHENTICATION_BACKENDS = [
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+AUTHENTICATION_BACKENDS = [
 
     # Needed to login by username in Django admin, regardless of `allauth`
     'django.contrib.auth.backends.ModelBackend',
@@ -91,7 +91,7 @@ MIDDLEWARE = [
 
 
     ]
-    WSGI_APPLICATION = 'skylodge.wsgi.application'
+WSGI_APPLICATION = 'skylodge.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
@@ -107,7 +107,7 @@ DATABASES = {
 
         # 'ENGINE': 'django.db.backends.sqlite3',
         # 'NAME': BASE_DIR / 'db.sqlite3',
-        
+
         }
         }
 
@@ -157,9 +157,9 @@ SOCIALACCOUNT_PROVIDERS = {
         }
 
         JAZZMIN_SETTINGS = {
-        
 
-        
+
+
         }
 
 
@@ -181,7 +181,7 @@ USE_TZ = True
 
 
 
-
+ 
 STATIC_URL = '/static/'
 if DEBUG:
     STATICFILES_DIRS = [
