@@ -64,4 +64,4 @@ class EditReservationForm(forms.ModelForm):
 
 
     class iHelaClientAccountForm(forms.Form):
-        account = forms.charfield()
+        account = forms.Charfield()
