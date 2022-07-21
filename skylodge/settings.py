@@ -97,12 +97,17 @@ WSGI_APPLICATION = 'skylodge.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 DATABASES = {
     'default': {
+    
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'skylodge',
         'USER': 'landry',
         'PASSWORD': 'landry2015',
         'HOST': 'localhost',
         'PORT': '',
+
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': BASE_DIR / 'db.sqlite3',
+    
     }
 }
 
@@ -173,9 +178,14 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
+
+
+
 STATIC_ROOT= os.path.join(BASE_DIR, 'static/')
 STATIC_URL = '/static/'
-#STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]  # pour utiliser static
+
+
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static/')]  # pour utiliser static
 # STATICFILES_STORAGE='whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Base url to serve media files
@@ -217,3 +227,8 @@ ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = True
 # cooldown time is in seconds
 ACCOUNT_EMAIL_CONFIRMATION_COOLDOWN = 180
+
+
+IHELA_CLIENT_ID = "4sS7OWlf8pqm04j1ZDtvUrEVSZjlLwtfGUMs2XWZ"
+IHELA_CLIENT_SECRET = "HN7osYwSJuEOO4MEth6iNlBS8oHm7LBhC8fejkZkqDJUrvVQodKtO55bMr845kmplSlfK3nxFcEk2ryiXzs1UW1YfVP5Ed6Yw0RR6QmnwsQ7iNJfzTgeehZ2XM9mmhC3"
+IHELA_API_PROD = False
