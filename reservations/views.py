@@ -331,4 +331,42 @@ def delete_history(request, pk):
     return redirect('history')
 
 
+def payment_options(request):
+    payment_options = ihela_bank_list()
+    ctx = {"bank_list": payment_options}
+    return render("payment_options.html",ctx)
+
+def pay_with_ihela(request,amount,bank_slug,pk):
+    try:
+        res = Reservation.objects.get(pk=pk)
+    except Reservation.DoesNotExist:
+         messages.info(request, 'Pas de résrevations trouvée; ')
+    # SHIRMAWO MESSAGE KO RESERVATION TUTAYIYOTE
+        pass
+    if request.method == "POST":
+        form = iHelaClientAccountForm(request.POST)
+        client = form.save(commit=False)
+        account = request.POST.get('account',None)
+        if account:
+            customer = ihela_api_customer_lookup(bank_slug,account)
+            if customer["name"]:
+                description = "reservation chambre {}".format(res.chambre)
+                date_ref = datetime.now().strftime("%y%m%d")
+                ref_number = uuid.uuid4().hex[:5]
+                reference = "REV-"+date_ref+ref_number
+                init_bill = ihela_api_bill_initiate(amount,customer["account_number"],reference,redirect_uri=REDIRECT_URL)
+            else:
+                pass
+        else:
+            pass
+        return render("pay_ihela.html")
+    return render("")
+
+
+def ihela_webhook(request):
+    pass
+
+
+
+
 
