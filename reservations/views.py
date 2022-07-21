@@ -342,7 +342,7 @@ def pay_with_ihela(request,amount,bank_slug,pk):
     except Reservation.DoesNotExist:
          messages.info(request, 'Pas de résrevations trouvée; ')
     # SHIRMAWO MESSAGE KO RESERVATION TUTAYIYOTE
-        pass
+        # pass
     if request.method == "POST":
         form = iHelaClientAccountForm(request.POST)
         client = form.save(commit=False)
@@ -363,7 +363,9 @@ def pay_with_ihela(request,amount,bank_slug,pk):
     return render("")
 
 
-
+def ihela_webhook(request):
+    pass
+    return render("")
 
 
 
