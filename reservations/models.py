@@ -46,7 +46,7 @@ class Reservation(models.Model):
 
 class Payment(models.Model):
     date_de_payment = models.DateField(auto_now=True)
-    reservation = models.ForeignKey(Reservation)
+    reservation = models.ForeignKey(Reservation,on_delete=models.CASCADE)
     amount = models.IntegerField()
     reference = models.CharField(unique=True,max_length=200)
     client = models.ForeignKey(User,on_delete=models.CASCADE)
