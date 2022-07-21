@@ -156,11 +156,7 @@ SOCIALACCOUNT_PROVIDERS = {
         },
         }
 
-        JAZZMIN_SETTINGS = {
 
-
-
-        }
 
 
 # Internationalization
