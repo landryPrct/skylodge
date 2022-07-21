@@ -51,6 +51,9 @@ urlpatterns = [
     path('skylodge/chambres', reservations_views.ajoutChambre, name='chambres'),
     path('skylodge/chambre/edit/<int:pk>', reservations_views.update_chambre, name='update_chambre'),
     path('skylodge/chambre/delete/<int:pk>', reservations_views.delete_chambre, name='del-chambre'),
+
+
+    path('skylodge/res/payment_opt'reservations_views.payment_options, name='pay_opt')
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,
