@@ -363,9 +363,7 @@ def pay_with_ihela(request,amount,bank_slug,pk):
     return render("")
 
 
-def ihela_webhook(request):
-    pass
-    return render("")
+
 
 
 
