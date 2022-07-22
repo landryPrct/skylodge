@@ -6,6 +6,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from reservations.forms import AjoutChambreForm, AjoutReservationForm, EditReservationForm, AjoutCategorieForm
 from reservations.models import Chambre, Reservation,Categorie
 from django.contrib.auth.models import User
+from accounts.ihela_api  import ihela_bank_list,ihela_api_bill_initiate,ihela_api_customer_lookup
 
 from datetime import datetime,date
 
