@@ -360,13 +360,13 @@ def pay_with_ihela(request,amount,bank_slug,pk):
                 pass
         else:
             pass
-        return render("pay_ihela.html")
-    return render("")
+        # return render("pay_ihela.html")
+    return render(request,"pay_ihela.html", {'form': form})
 
 
 def ihela_webhook(request):
     pass
-    return render("")
+    # return render("")
 
 
 
