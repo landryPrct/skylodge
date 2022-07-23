@@ -235,7 +235,7 @@ def ajout_reservations(request, pk, fromdate, todate):
             
             reservation.save()
             messages.success(request, 'Félicitations , bien réserver')
-            return redirect('list-reservations')
+            return redirect('pay_opt')
     else:
         form = AjoutReservationForm()
     #     listes de reservations
@@ -243,7 +243,7 @@ def ajout_reservations(request, pk, fromdate, todate):
     if reservations.count()==0:
         messages.warning(request, "Pas de réservations trouvées")
     ctx = {'form': form,'reservations': reservations, 'chambre': chambre, "fromdate":fromdate,"todate":todate,"delta":delta,"categorie":categorie}
-    return render(request, 'reservation.html',ctx )
+    return render(request,'reservation.html',ctx )
 
 
 
@@ -335,15 +335,14 @@ def delete_history(request, pk):
 def payment_options(request):
     payment_options = ihela_bank_list()
     ctx = {"bank_list": payment_options}
-    return render("payment_options.html",ctx)
+    return render(request,"payment_options.html",ctx)
 
 def pay_with_ihela(request,amount,bank_slug,pk):
     try:
         res = Reservation.objects.get(pk=pk)
     except Reservation.DoesNotExist:
          messages.info(request, 'Pas de résrevations trouvée; ')
-    # SHIRMAWO MESSAGE KO RESERVATION TUTAYIYOTE
-        # pass
+
     if request.method == "POST":
         form = iHelaClientAccountForm(request.POST)
         client = form.save(commit=False)
@@ -360,7 +359,7 @@ def pay_with_ihela(request,amount,bank_slug,pk):
                 pass
         else:
             pass
-        # return render("pay_ihela.html")
+       
     return render(request,"pay_ihela.html", {'form': form})
 
 
