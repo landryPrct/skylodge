@@ -63,5 +63,5 @@ class EditReservationForm(forms.ModelForm):
         fields = [ 'status']
 
 
-    class iHelaClientAccountForm(forms.Form):
-        account = forms.CharField(max_length=50)
+class iHelaClientAccountForm(forms.Form):
+    account = forms.CharField(max_length=50)

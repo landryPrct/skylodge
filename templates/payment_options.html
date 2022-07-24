@@ -1,6 +1,6 @@
 {% extends 'base.html'%}
 
-{% block title %} Connexion {% endblock %}
+{% block title %}Payment Options{% endblock %}
 
 {% block content %}
 <section>
@@ -10,7 +10,7 @@
         <div class="row">
             {% for bank in bank_list.banks %}
             <div class="col-6">
-                <img src="{{bank.company.logo}}" width="100">
+                <a href="{% url 'pay_ihela' bank.slug amount reservation %}"><img src="{{bank.company.logo}}" width="100"></a>
             </div>
             {% endfor %}
 

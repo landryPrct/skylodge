@@ -1,14 +1,15 @@
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
+from django.http import HttpResponse,HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
-from reservations.forms import AjoutChambreForm, AjoutReservationForm, EditReservationForm, AjoutCategorieForm
+from reservations.forms import AjoutChambreForm, AjoutReservationForm, EditReservationForm, AjoutCategorieForm, iHelaClientAccountForm
 from reservations.models import Chambre, Reservation,Categorie
 from django.contrib.auth.models import User
 from accounts.ihela_api  import ihela_bank_list,ihela_api_bill_initiate,ihela_api_customer_lookup
 
 from datetime import datetime,date
+from uuid import uuid4
 
 def home(request):
 
@@ -203,11 +204,13 @@ def ajout_reservations(request, pk, fromdate, todate):
         return render(request, 'accueil.html')
     chambre = get_object_or_404(Chambre, pk=pk)
     categorie=get_object_or_404(Categorie,chambre=chambre.id)
-
+    res_id=0
+  
+   
     fromdate=fromdate
     todate=todate
+  
        
-    
     
     # convert string to date object
     d1 = datetime.strptime(fromdate, "%Y-%m-%d")
@@ -217,6 +220,9 @@ def ajout_reservations(request, pk, fromdate, todate):
     # difference between dates in timedelta
     delta = d2 - d1
 
+    days = delta.days
+
+    amount= days * categorie.prix
 
 
 
@@ -234,15 +240,24 @@ def ajout_reservations(request, pk, fromdate, todate):
 
             
             reservation.save()
+            
+            res_id=Reservation.objects.filter(client=request.user.id).order_by('-id')[0]
+            
+            res_id= res_id.id
+         
+
             messages.success(request, 'Félicitations , bien réserver')
-            return redirect('pay_opt')
+
+
+            return redirect("pay_opt", latest=res_id ,amount=amount  )
+        #
     else:
         form = AjoutReservationForm()
     #     listes de reservations
     reservations = Reservation.objects.all()
     if reservations.count()==0:
         messages.warning(request, "Pas de réservations trouvées")
-    ctx = {'form': form,'reservations': reservations, 'chambre': chambre, "fromdate":fromdate,"todate":todate,"delta":delta,"categorie":categorie}
+    ctx = {'form': form,'reservations': reservations, 'chambre': chambre, "fromdate":fromdate,"todate":todate,"days":days,"categorie":categorie,"amount":amount,"latest":res_id}
     return render(request,'reservation.html',ctx )
 
 
@@ -332,35 +347,48 @@ def delete_history(request, pk):
     return redirect('history')
 
 
-def payment_options(request):
+@login_required
+def payment_options(request,amount,latest):
+    reservation=latest
+    amount=amount
     payment_options = ihela_bank_list()
-    ctx = {"bank_list": payment_options}
+    ctx = {"bank_list": payment_options,"reservation":reservation,"amount":amount}
     return render(request,"payment_options.html",ctx)
 
+@login_required
 def pay_with_ihela(request,amount,bank_slug,pk):
+    REDIRECT_URL="skylodge/reservations"
     try:
         res = Reservation.objects.get(pk=pk)
     except Reservation.DoesNotExist:
          messages.info(request, 'Pas de résrevations trouvée; ')
 
     if request.method == "POST":
-        form = iHelaClientAccountForm(request.POST)
-        client = form.save(commit=False)
+        # form = iHelaClientAccountForm(request.POST)
+        # client = form.save(commit=False)
         account = request.POST.get('account',None)
         if account:
             customer = ihela_api_customer_lookup(bank_slug,account)
-            if customer["name"]:
+
+            if customer['name']:
                 description = "reservation chambre {}".format(res.chambre)
                 date_ref = datetime.now().strftime("%y%m%d")
-                ref_number = uuid.uuid4().hex[:5]
+                ref_number = uuid4().hex[:5]
                 reference = "REV-"+date_ref+ref_number
-                init_bill = ihela_api_bill_initiate(amount,customer["account_number"],reference,redirect_uri=REDIRECT_URL)
-            else:
-                pass
+                bank_client=bank_slug
+                bank="ihela"
+                init_bill = ihela_api_bill_initiate(amount,customer["account_number"],description,reference,bank,bank_client,redirect_uri=REDIRECT_URL)
+
+                messages.info(request,customer['name'] + " Vous venez de payer"+ str(amount) + ":"+ reference  )
+
+                return redirect('list-reservations')
+
         else:
             pass
+
+   
        
-    return render(request,"pay_ihela.html", {'form': form})
+    return render(request,"pay_ihela.html")
 
 
 def ihela_webhook(request):

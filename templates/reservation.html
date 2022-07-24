@@ -47,7 +47,7 @@
 
 
               <p class="fs-6 text-muted"><i>Vous avez choisis une réservation :</i> </p>
-              <p><b> Nombre de jours : </b>{{ delta.days }}
+              <p><b> Nombre de jours : </b>{{ days }}
                 {% if delta.days == 1 %}
                       jour
                 {% else %}
@@ -60,11 +60,10 @@
               <p> <i class="las la-door-closed fs-4 text-success"></i><b>Chambre N* : </b>{{ chambre.chambre_numero }}</p>
               <p> <i class="las la-money-bill fs-4 text-success"></i><b> Prix : </b>{{ categorie.prix }} BIF</p>
 
-              {{ prix }}
-              <p class="text-center "> Confirmer la réservation ?</p>
+              <b class="text-muted ">Le Prix total à payer :{{ amount }}</b>
             </div>
             <div class="col  border-left " >
-                  <h1 class="display-3  mt-5 pt-5   d-sm-none d-md-block">{{ categorie.type }}</h1>
+                  <h1 class="display-3  mt-5 pt-5   d-sm-none d-md-block">{{ categorie.type }} {{latest}}</h1>
                 </div>
           </div> 
           </div>
@@ -77,18 +76,18 @@
                   
 
 
-       <form class="p-4 "  method="post" novalidate>
+       <form class="p-4 "  method="post" novalidate >
               {% csrf_token %}
 
 
                    <input type="hidden"  value='{{ fromdate }}' name="debut_sejour" >
                    <input type="hidden"  value='{{ todate }}' name="fin_sejour" >
 
-          <button class="w-100 btn btn-lg btn-main" type="submit" >Oui, Réserver</button>
+      <button class="w-100 btn btn-lg btn-main" type="submit">Oui, Réserver</button> 
           
 
         </form>
-        <a href="{% url 'home' %}" class="btn btn-warning m-2"> Non, Annuler</a>
+        <a href="" class="btn btn-warning m-2"> Non, Annuler</a>
           <hr class="my-4">
 
       </div>

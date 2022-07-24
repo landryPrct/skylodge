@@ -98,15 +98,15 @@ WSGI_APPLICATION = 'skylodge.wsgi.application'
 DATABASES = {
 'default': {
 
-# 'ENGINE': 'django.db.backends.postgresql_psycopg2',
-# 'NAME': 'skylodge',
-# 'USER': 'landry',
-# 'PASSWORD': 'landry2015',
-# 'HOST': 'localhost',
-# 'PORT': '',
+'ENGINE': 'django.db.backends.postgresql_psycopg2',
+'NAME': 'skylodge',
+'USER': 'landry',
+'PASSWORD': 'landry2015',
+'HOST': 'localhost',
+'PORT': '',
 
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': BASE_DIR / 'db.sqlite3',
 
         }
         }
