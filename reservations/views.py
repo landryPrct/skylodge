@@ -7,6 +7,7 @@ from reservations.forms import AjoutChambreForm, AjoutReservationForm, EditReser
 from reservations.models import Chambre, Reservation,Categorie
 from django.contrib.auth.models import User
 from accounts.ihela_api  import ihela_bank_list,ihela_api_bill_initiate,ihela_api_customer_lookup
+from rest_framework.views import APIView
 
 from datetime import datetime,date
 from uuid import uuid4
@@ -357,38 +358,68 @@ def payment_options(request,amount,latest):
 
 @login_required
 def pay_with_ihela(request,amount,bank_slug,pk):
-    REDIRECT_URL="skylodge/reservations"
+    REDIRECT_URL="https://skylodge.ubuviz.com/skylodge/reservations"
     try:
         res = Reservation.objects.get(pk=pk)
     except Reservation.DoesNotExist:
          messages.info(request, 'Pas de résrevations trouvée; ')
-
+    url=''
     if request.method == "POST":
-        # form = iHelaClientAccountForm(request.POST)
-        # client = form.save(commit=False)
-        account = request.POST.get('account',None)
-        if account:
-            customer = ihela_api_customer_lookup(bank_slug,account)
+        form = iHelaClientAccountForm(request.POST)
 
-            if customer['name']:
-                description = "reservation chambre {}".format(res.chambre)
-                date_ref = datetime.now().strftime("%y%m%d")
-                ref_number = uuid4().hex[:5]
-                reference = "REV-"+date_ref+ref_number
-                bank_client=bank_slug
-                bank="ihela"
-                init_bill = ihela_api_bill_initiate(amount,customer["account_number"],description,reference,bank,bank_client,redirect_uri=REDIRECT_URL)
+        if form.is_valid():
+            client = form.save(commit=False)
 
-                messages.info(request,customer['name'] + " Vous venez de payer"+ str(amount) + ":"+ reference  )
+            account = request.POST.get('account',None)
+            if account:
+                customer = ihela_api_customer_lookup(bank_slug,account)
 
-                return redirect('list-reservations')
+                if customer['name']:
+                    description = "reservation chambre {}".format(res.chambre)
+                    date_ref = datetime.now().strftime("%y%m%d")
+                    ref_number = uuid4().hex[:5]
+                    reference = "REV-"+date_ref+ref_number
+                    # bank_client=bank_slug
+                    # bank=bank_slug
+                    redirect_uri=REDIRECT_URL
+                    init_bill = ihela_api_bill_initiate(amount,customer["account_number"],description,reference,redirect_uri=REDIRECT_URL)
+                    if isinstance(init_bill,dict):
+                        print(amount,customer["account_number"],description,reference,redirect_uri)
+                    else:
+                        print("init bill",init_bill,amount,customer["account_number"],description,reference)
+
+                    # init_bill=init_bill['bill']
+                    
+                    # for bill in  init_bill.bill:
+                    #     url=bill.marchant.merchant.confirmation_uri
+
+                    print("**************************************",init_bill
+                    )
+
+                 
+
+                    client.reservation = res
+                    client.amount = amount
+                    client.reference = reference
+                    client.client=request.user
+                    
+
+                    client.save()
+                    url=init_bill["bill"]["confirmation_uri"]
+                    messages.info(request,customer['name'] + " Vous venez de payer "+ str(amount) + " FBU :" + reference  )
+                    return redirect(url)
+
+            else:
+            
+                messages.info(request,"no!" )
 
         else:
-            pass
+            print(form.errors.as_data())
+            messages.info(request,"vide!" )
+            
 
-   
-       
-    return render(request,"pay_ihela.html")
+    ctx={"amount":amount}
+    return render(request,"pay_ihela.html",ctx)
 
 
 def ihela_webhook(request):

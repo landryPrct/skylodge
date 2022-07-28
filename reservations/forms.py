@@ -1,6 +1,6 @@
 from django import forms
 
-from reservations.models import Chambre, Reservation, Categorie
+from reservations.models import Chambre, Reservation, Categorie,Payment
 
 
 class AjoutCategorieForm(forms.ModelForm):
@@ -63,5 +63,8 @@ class EditReservationForm(forms.ModelForm):
         fields = [ 'status']
 
 
-class iHelaClientAccountForm(forms.Form):
-    account = forms.CharField(max_length=50)
+class iHelaClientAccountForm(forms.ModelForm):
+    # account = forms.CharField(max_length=50)
+    class Meta:
+        model=Payment
+        fields = ['amount']

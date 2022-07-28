@@ -17,9 +17,11 @@ def ihela_bank_list():
 	return bank_list
 
 def ihela_api_customer_lookup(bank_slug,customer_id):
+	auth = MerchantClient(client_id,client_secret,prod)
 	customer = auth.customer_lookup(bank_slug,customer_id)
 	return customer
 
 def ihela_api_bill_initiate(amount,account,description,reference,bank=None,bank_client=None,redirect_uri=None):
+	auth = MerchantClient(client_id,client_secret,prod)
 	bill = auth.init_bill(amount,account,description,reference,bank,bank_client,redirect_uri)
-
+	return bill

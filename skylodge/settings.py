@@ -32,6 +32,7 @@ INSTALLED_APPS = [
 'django.contrib.staticfiles',
 
 'django.contrib.sites',
+'rest_framework',
 
 'allauth',
 'allauth.account',
@@ -98,15 +99,15 @@ WSGI_APPLICATION = 'skylodge.wsgi.application'
 DATABASES = {
 'default': {
 
-'ENGINE': 'django.db.backends.postgresql_psycopg2',
-'NAME': 'skylodge',
-'USER': 'landry',
-'PASSWORD': 'landry2015',
-'HOST': 'localhost',
-'PORT': '',
+# 'ENGINE': 'django.db.backends.postgresql_psycopg2',
+# 'NAME': 'skylodge',
+# 'USER': 'landry',
+# 'PASSWORD': 'landry2015',
+# 'HOST': 'localhost',
+# 'PORT': '',
 
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
 
         }
         }
@@ -155,6 +156,14 @@ SOCIALACCOUNT_PROVIDERS = {
         'VERSION': 'v13.0',
         },
         }
+
+# REST_FRAMEWORK = {
+#     # Use Django's standard `django.contrib.auth` permissions,
+#     # or allow read-only access for unauthenticated users.
+#     'DEFAULT_PERMISSION_CLASSES': [
+#         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+#     ]
+# }
 
 
 
