@@ -50,6 +50,7 @@ class Payment(models.Model):
     amount = models.IntegerField()
     reference = models.CharField(unique=True,max_length=200)
     client = models.ForeignKey(User,on_delete=models.CASCADE)
+    bill_reference = models.CharField(max_length=200,blank=True,null=True,unique=True)
     
 
     def __str__(self):

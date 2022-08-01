@@ -8,6 +8,7 @@ from reservations.models import Chambre, Reservation,Categorie
 from django.contrib.auth.models import User
 from accounts.ihela_api  import ihela_bank_list,ihela_api_bill_initiate,ihela_api_customer_lookup
 from rest_framework.views import APIView
+from rest_framework.response import Response
 
 from datetime import datetime,date
 from uuid import uuid4
@@ -426,6 +427,36 @@ def ihela_webhook(request):
     pass
     # return render("")
 
+
+class iHelaCallbackAPIView(APIView):
+
+    def post(self,request):
+        merchant_reference = self.request.data.get("merchant_reference",None)
+        bill_code = self.request.data.get("bill_code",None)
+        error = self.request.data.get("error",None)
+        error_message = self.request.data.get("error_message",None)
+        payment_reference = self.request.data.get("payment_reference",None)
+
+        try:
+            payment = Payment.objects.get(reference=merchant_reference)
+            if error == False:
+                reservation = payment.reservation
+                reservation.reservation_status = reservation.PAID
+                reservation.save()
+                payment.bill_reference = payment_reference
+                payment.save()
+                return Response({"error":False,"error_message":"Success"})
+            elif error == True:
+                return Response({"error":True,"error_message":"Failed"})
+
+        except Payment.DoesNotExist:
+            pass
+
+        return Response({})
+
+
+def ihela_transaction_verification(request):
+    pass
 
 
 

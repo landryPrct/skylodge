@@ -54,7 +54,8 @@ urlpatterns = [
 
 
     path('skylodge/res/payment_opt/<int:latest>/<int:amount>',reservations_views.payment_options, name='pay_opt'),
-    path('skylodge/res/pay_ihela/<slug:bank_slug>/<int:amount>/<int:pk>',reservations_views.pay_with_ihela, name='pay_ihela')
+    path('skylodge/res/pay_ihela/<slug:bank_slug>/<int:amount>/<int:pk>',reservations_views.pay_with_ihela, name='pay_ihela'),
+    path('skylodge/ihela/callback/',reservations_views.iHelaCallbackAPIView.as_view())
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,
