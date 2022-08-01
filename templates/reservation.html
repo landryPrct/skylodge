@@ -42,7 +42,7 @@
                 <div class="confetti-piece"></div>
             </div>
               
-            <i class="las la-gifts fs-2">  Félicitation ...{{ user.username }}</i>
+            <i class="las la-gifts fs-2"> Bien Choisi  {{ user.username }}</i>
               <hr>
 
 
@@ -60,10 +60,12 @@
               <p> <i class="las la-door-closed fs-4 text-success"></i><b>Chambre N* : </b>{{ chambre.chambre_numero }}</p>
               <p> <i class="las la-money-bill fs-4 text-success"></i><b> Prix : </b>{{ categorie.prix }} BIF</p>
 
-              <b class="text-muted ">Le Prix total à payer :{{ amount }}</b>
+              <b class="text-muted ">Type de Chambre:{{ categorie.type }}</b>
             </div>
             <div class="col  border-left " >
-                  <h1 class="display-3  mt-5 pt-5   d-sm-none d-md-block">{{ categorie.type }} {{latest}}</h1>
+                  <p class="text-muted mt-5 pt-5 ">Le Prix total à payer:</p>
+                  <h1 class="display-3    d-sm-none d-md-block">{{ total }} Fbu </h1>
+                  <b>Cotion:{{ amount }} Fbu</b>
                 </div>
           </div> 
           </div>
@@ -83,11 +85,11 @@
                    <input type="hidden"  value='{{ fromdate }}' name="debut_sejour" >
                    <input type="hidden"  value='{{ todate }}' name="fin_sejour" >
 
-      <button class="w-100 btn btn-lg btn-main" type="submit">Oui, Réserver</button> 
+      <button class="w-100 btn btn-lg btn-main" type="submit">Payer {{ amount }} Fbu</button> 
           
 
         </form>
-        <a href="" class="btn btn-warning m-2"> Non, Annuler</a>
+        <a href="" class="btn btn-warning m-2">Annuler</a>
           <hr class="my-4">
 
       </div>

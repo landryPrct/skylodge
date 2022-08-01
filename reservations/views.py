@@ -12,6 +12,7 @@ from rest_framework.response import Response
 
 from datetime import datetime,date
 from uuid import uuid4
+import math
 
 def home(request):
 
@@ -211,9 +212,7 @@ def ajout_reservations(request, pk, fromdate, todate):
    
     fromdate=fromdate
     todate=todate
-  
-       
-    
+
     # convert string to date object
     d1 = datetime.strptime(fromdate, "%Y-%m-%d")
     d2 = datetime.strptime(todate, "%Y-%m-%d")
@@ -223,8 +222,9 @@ def ajout_reservations(request, pk, fromdate, todate):
     delta = d2 - d1
 
     days = delta.days
+    total_to_pay=days * categorie.prix
 
-    amount= days * categorie.prix
+    amount= math.ceil(total_to_pay / 2)
 
 
 
@@ -248,7 +248,6 @@ def ajout_reservations(request, pk, fromdate, todate):
             res_id= res_id.id
          
 
-            messages.success(request, 'Félicitations , bien réserver')
 
 
             return redirect("pay_opt", latest=res_id ,amount=amount  )
@@ -259,7 +258,7 @@ def ajout_reservations(request, pk, fromdate, todate):
     reservations = Reservation.objects.all()
     if reservations.count()==0:
         messages.warning(request, "Pas de réservations trouvées")
-    ctx = {'form': form,'reservations': reservations, 'chambre': chambre, "fromdate":fromdate,"todate":todate,"days":days,"categorie":categorie,"amount":amount,"latest":res_id}
+    ctx = {'form': form,'reservations': reservations, 'chambre': chambre, "fromdate":fromdate,"todate":todate,"days":days,"categorie":categorie,"amount":amount,"latest":res_id ,"total":total_to_pay}
     return render(request,'reservation.html',ctx )
 
 
@@ -277,7 +276,7 @@ def update_chambre(request, pk):
         elif form.is_valid():
             chambre = form.save(commit=False)
             chambre.save()
-            messages.info(request, 'Bien annulée')
+            messages.info(request, 'Annulée')
             return redirect('chambres')
 
     return render(request, 'update_chambre.html', {'form': form})
@@ -389,13 +388,7 @@ def pay_with_ihela(request,amount,bank_slug,pk):
                     else:
                         print("init bill",init_bill,amount,customer["account_number"],description,reference)
 
-                    # init_bill=init_bill['bill']
-                    
-                    # for bill in  init_bill.bill:
-                    #     url=bill.marchant.merchant.confirmation_uri
-
-                    print("**************************************",init_bill
-                    )
+                   
 
                  
 
@@ -407,7 +400,7 @@ def pay_with_ihela(request,amount,bank_slug,pk):
 
                     client.save()
                     url=init_bill["bill"]["confirmation_uri"]
-                    messages.info(request,customer['name'] + " Vous venez de payer "+ str(amount) + " FBU :" + reference  )
+                   
                     return redirect(url)
 
             else:

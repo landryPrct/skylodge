@@ -9,7 +9,7 @@
 
 <section class="bg-cove">
 	<div class="container">
-		<h2 class="text-muted"><i class="las la-credit-card la-2x text-success"></i>Paiement</h2>
+		<h2 class="text-muted"><i class="las la-credit-card la-2x text-success"></i>Paiement   <i > avec iHela Ryanje</i></h2>
 		<hr>
 		<div class="row justify-content-center">
 
@@ -26,7 +26,7 @@
 
 					{% csrf_token %}
 
-
+					<b>Ihela Code:</b>
                    <input type="hidden"  class="rounded-2 border-primary  border-2 m-2 tex-dark w-100 p-2" value='{{ amount }}' name="amount" >
 
 					<input type="text" class="rounded-2 border-primary  border-2 m-2 tex-dark w-100 p-2" name="account"><br>
