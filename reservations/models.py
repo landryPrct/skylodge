@@ -39,7 +39,7 @@ class Reservation(models.Model):
     client = models.ForeignKey(User, on_delete=models.CASCADE)
     status=models.CharField(max_length=100,choices=RES_STATUS,default=True)
     date_operation = models.DateTimeField(auto_now_add=True)
-    reservation_status = models.CharField(max_length=100,default=PAID,choices=RESERVATION_STATUS)
+    payment_status = models.CharField(max_length=100,blank=True)
 
     def __str__(self):
         return str(self.client.username)
