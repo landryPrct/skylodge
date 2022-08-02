@@ -224,6 +224,7 @@ def ajout_reservations(request, pk, fromdate, todate):
             reservation.chambre = chambre
             reservation.debut_sejour = fromdate
             reservation.fin_sejour = todate
+            reservation.status = False
             reservation.payment_status = "NOT PAID"
 
             reservation.save()
@@ -404,11 +405,14 @@ class iHelaCallbackAPIView(APIView):
             if error == False:
                 reservation = payment.reservation
                 reservation.payment_status = "PAID"
+                reservation.status = True
                 reservation.save()
                 payment.bill_reference = payment_reference
                 payment.save()
+                messages.info(request, "Payé avec Succés! ")
                 return Response({"error": False, "error_message": "Success"})
             elif error == True:
+                messages.warning(request, "Paiement non effectué !")
                 return Response({"error": True, "error_message": "Failed"})
 
         except Payment.DoesNotExist:

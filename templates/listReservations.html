@@ -24,6 +24,7 @@
                 <th scope="col">Chambre</th>
                 <th scope="col">Réserver le</th>
                 <th scope="col">Status </th>
+                <th scope="col">Payment Status </th>
                 {% if user.is_staff %}
                 <th scope="col">Par</th>
                 <th scope="col">Editer</th>
@@ -62,13 +63,16 @@
                   {% endif %}
 
                 </td>
+                <td>
+                  <h4>{{res.payment_status}}</h4>
+                </td>
                 {% if user.is_staff %}
                 <td class="text-muted"><i>{{res.client.username}}</i> </td>
                 {% endif %}
-                <td><a href="{% url 'update_reservation' res.id %}" title="Editer"><i
+                <td><a href="{% url 'update_reservation' res.id %}" title="Annuler"><i
                       class="lar la-times-circle fs-3 text-danger"></i></a></td>
                 {% if user.is_staff %}
-                <td><a href="{% url 'del-reservation' res.id %}" title="Annuler"><i
+                <td><a href="{% url 'del-reservation' res.id %}" title="Supprimer"><i
                       class="las la-trash fs-3 text-danger"></i></a></td>
                 {% endif %}
               </tr>
