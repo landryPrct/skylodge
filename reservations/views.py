@@ -3,12 +3,16 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
-from reservations.forms import AjoutChambreForm, AjoutReservationForm, EditReservationForm, AjoutCategorieForm, iHelaClientAccountForm
+from reservations.forms import AjoutChambreForm, AjoutReservationForm, EditReservationForm, AjoutCategorieForm, iHelaClientAccountForm, UpdateUserForm
 from reservations.models import Chambre, Reservation, Categorie, Payment
 from django.contrib.auth.models import User
 from accounts.ihela_api import ihela_bank_list, ihela_api_bill_initiate, ihela_api_customer_lookup
 from rest_framework.views import APIView
 from rest_framework.response import Response
+
+from django.urls import reverse_lazy
+from django.contrib.auth.views import PasswordChangeView
+from django.contrib.messages.views import SuccessMessageMixin
 
 from datetime import datetime, date
 from uuid import uuid4
@@ -423,3 +427,25 @@ class iHelaCallbackAPIView(APIView):
 
 def ihela_transaction_verification(request):
     pass
+
+
+class ChangePasswordView(SuccessMessageMixin, PasswordChangeView):
+    template_name = 'change_password.html'
+    success_message = "Successfully Changed Your Password"
+    success_url = reverse_lazy('users-home')
+
+
+@login_required
+def profile(request):
+    if request.method == 'POST':
+        user_form = UpdateUserForm(request.POST, instance=request.user)
+
+        if user_form.is_valid():
+            user_form.save()
+
+            messages.success(request, 'Your profile is updated successfully')
+            return redirect(to='home')
+    else:
+        user_form = UpdateUserForm(instance=request.user)
+
+    return render(request, 'profile.html', {'user_form': user_form})

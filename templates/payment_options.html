@@ -14,8 +14,8 @@
             {% if bank.slug == "MF1-0001" %}
             <a href="{% url 'pay_ihela' bank.slug amount reservation %}">Payer avec iHela Ryanje</a>
             <div class="col-6">
-                <a href="{% url 'pay_ihela' bank.slug amount reservation %}"><img src="{% static 'img/ihelalogo.jpg' %}"
-                        width="100"></a>
+                <a href="{% url 'pay_ihela' bank.slug amount reservation %}"><img
+                        src="{% static 'img/ihela_ryanje.png' %}" width="100"></a>
             </div>
             {% endif %}
             {% endfor %}

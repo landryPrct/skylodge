@@ -27,7 +27,8 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('users/', reservations_views.listUsers, name='list-user'),
     # path('home', reservations_views.ajout_reservations, name='home'),
-    path('skylodge/user/room/<int:pk>/reservation/<str:fromdate>/<str:todate>', reservations_views.ajout_reservations, name='reservation'),
+    path('skylodge/user/room/<int:pk>/reservation/<str:fromdate>/<str:todate>',
+         reservations_views.ajout_reservations, name='reservation'),
 
     path('admin/', admin.site.urls),
     path('skylodge/signup/user', accounts_views.user_signup, name='user_signup'),
@@ -53,10 +54,16 @@ urlpatterns = [
     path('skylodge/chambre/delete/<int:pk>', reservations_views.delete_chambre, name='del-chambre'),
 
 
-    path('skylodge/res/payment_opt/<int:latest>/<int:amount>',reservations_views.payment_options, name='pay_opt'),
-    path('skylodge/res/pay_ihela/<slug:bank_slug>/<int:amount>/<int:pk>',reservations_views.pay_with_ihela, name='pay_ihela'),
-    path('skylodge/ihela/callback/',reservations_views.iHelaCallbackAPIView.as_view())
+    path('skylodge/res/payment_opt/<int:latest>/<int:amount>', reservations_views.payment_options, name='pay_opt'),
+    path('skylodge/res/pay_ihela/<slug:bank_slug>/<int:amount>/<int:pk>',
+         reservations_views.pay_with_ihela, name='pay_ihela'),
+    path('skylodge/ihela/callback/', reservations_views.iHelaCallbackAPIView.as_view()),
+
+    path('skylodge/user/profile/', reservations_views.profile, name='profile'),
+    path('skylodge/user/password-change/', reservations_views.ChangePasswordView.as_view(), name='password_change')
 ]
+
+
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,
                           document_root=settings.MEDIA_ROOT)

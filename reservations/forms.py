@@ -1,6 +1,19 @@
 from django import forms
+from django.contrib.auth.models import User
 
-from reservations.models import Chambre, Reservation, Categorie,Payment
+from reservations.models import Chambre, Reservation, Categorie, Payment
+
+
+class UpdateUserForm(forms.ModelForm):
+    username = forms.CharField(max_length=100,
+                               required=True,
+                               widget=forms.TextInput(attrs={'class': 'form-control'}))
+    email = forms.EmailField(required=True,
+                             widget=forms.TextInput(attrs={'class': 'form-control'}))
+
+    class Meta:
+        model = User
+        fields = ['username', 'email']
 
 
 class AjoutCategorieForm(forms.ModelForm):
@@ -55,16 +68,13 @@ class EditReservationForm(forms.ModelForm):
 
     # ))
 
-
-   
-
     class Meta:
         model = Reservation
-        fields = [ 'status']
+        fields = ['status']
 
 
 class iHelaClientAccountForm(forms.ModelForm):
     # account = forms.CharField(max_length=50)
     class Meta:
-        model=Payment
+        model = Payment
         fields = ['amount']

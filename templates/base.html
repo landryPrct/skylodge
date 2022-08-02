@@ -145,10 +145,11 @@
               </li>
               {% if user.is_authenticated %}
               <li class="nav-item">
-                <a href="#" data-aos="fade-up" class="btn btn-main  ">{{ user.username }}</a>
+                <a href="{% url 'profile' %}" data-aos="fade-up" class="btn btn-main  ">{{ user.username }} |
+                  <i class="fa-solid fa-cog fa-spin fa-spin-reverse la-2x"></i> </a>
               </li>
-              <li class="nav-item">
-                <a href="{% url 'account_logout'%}" data-aos="fade-up" class="nav-link text-warning">Déconnexion</a>
+              <li class=" nav-item">
+                    <a href="{% url 'account_logout'%}" data-aos="fade-up" class="nav-link text-warning">Déconnexion</a>
               </li>
               {% else %}
               <li class="nav-item">
