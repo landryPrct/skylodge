@@ -1,12 +1,12 @@
 {% extends 'base.html'%}
-{% load  widget_tweaks %}
+{% load widget_tweaks %}
 
 
-{% block title %} Reservation{% endblock  %}
+{% block title %} Reservation{% endblock %}
 
 {% block content %}
 <section class="bg-cover text-dark">
-<div class="container col-xl-10 col-xxl-8 px-4 py-1">
+  <div class="container col-xl-10 col-xxl-8 px-4 py-1">
     <h1><i class="las la-calendar-check fs-1  text-success"></i>Réservation </h1>
     <hr class="text-primary ">
 
@@ -16,81 +16,82 @@
 
     <div class="row align-items-center g-lg-5 py-1">
       <div class="col-md-10 mx-auto col-lg-8 ">
-       
-
-          <div class="card bg-success bg-opacity-10">
-           
-            <div class="card-body shadow-lg border-top border-4 border-success">
-              <div class="row">
-                <div class="col">
-                  
-
-            
-              <div class="confetti">
-                <div class="confetti-piece"></div>
-                <div class="confetti-piece"></div>
-                <div class="confetti-piece"></div>
-                <div class="confetti-piece"></div>
-                <div class="confetti-piece"></div>
-                <div class="confetti-piece"></div>
-                <div class="confetti-piece"></div>
-                <div class="confetti-piece"></div>
-                <div class="confetti-piece"></div>
-                <div class="confetti-piece"></div>
-                <div class="confetti-piece"></div>
-                <div class="confetti-piece"></div>
-                <div class="confetti-piece"></div>
-            </div>
-              
-            <i class="las la-gifts fs-2"> Bien Choisi  {{ user.username }}</i>
-              <hr>
 
 
-              <p class="fs-6 text-muted"><i>Vous avez choisis une réservation :</i> </p>
-              <p><b> Nombre de jours : </b>{{ days }}
-                {% if delta.days == 1 %}
-                      jour
-                {% else %}
-                    jours
-                {% endif%}
+        <div class="card bg-success bg-opacity-10">
+
+          <div class="card-body shadow-lg border-top border-4 border-success">
+            <div class="row">
+              <div class="col">
+
+
+
+                <div class="confetti">
+                  <div class="confetti-piece"></div>
+                  <div class="confetti-piece"></div>
+                  <div class="confetti-piece"></div>
+                  <div class="confetti-piece"></div>
+                  <div class="confetti-piece"></div>
+                  <div class="confetti-piece"></div>
+                  <div class="confetti-piece"></div>
+                  <div class="confetti-piece"></div>
+                  <div class="confetti-piece"></div>
+                  <div class="confetti-piece"></div>
+                  <div class="confetti-piece"></div>
+                  <div class="confetti-piece"></div>
+                  <div class="confetti-piece"></div>
+                </div>
+
+                <i class="las la-gifts fs-2"> Bien Choisi {{ user.username }}</i>
+                <hr>
+
+
+                <p class="fs-6 text-muted"><i>Vous avez choisis une réservation :</i> </p>
+                <p><b> Nombre de jours : </b>{{ days }}
+                  {% if delta.days == 1 %}
+                  jour
+                  {% else %}
+                  jours
+                  {% endif%}
                 </p>
 
-              <p><i class="las la-calendar-minus fs-4 text-success"></i><b> Début : </b>{{ fromdate }}</p>
-              <p><i class="lar la-calendar-plus fs-4 text-success"></i><b> Fin :</b> {{ todate }}</p>
-              <p> <i class="las la-door-closed fs-4 text-success"></i><b>Chambre N* : </b>{{ chambre.chambre_numero }}</p>
-              <p> <i class="las la-money-bill fs-4 text-success"></i><b> Prix : </b>{{ categorie.prix }} BIF</p>
+                <p><i class="las la-calendar-minus fs-4 text-success"></i><b> Début : </b>{{ fromdate }}</p>
+                <p><i class="lar la-calendar-plus fs-4 text-success"></i><b> Fin :</b> {{ todate }}</p>
+                <p> <i class="las la-door-closed fs-4 text-success"></i><b>Chambre N* : </b>{{ chambre.chambre_numero }}
+                </p>
+                <p> <i class="las la-money-bill fs-4 text-success"></i><b> Prix : </b>{{ categorie.prix }} BIF</p>
 
-              <b class="text-muted ">Type de Chambre:{{ categorie.type }}</b>
+                <b class="text-muted ">Type de Chambre:{{ categorie.type }}</b>
+              </div>
+              <div class="col  border-left ">
+                <p class="text-muted mt-5 pt-5 ">Le Prix total à payer:</p>
+                <h1 class="display-3    d-sm-none d-md-block">{{ total }} Fbu </h1>
+                <b>Cotion:{{ amount }} Fbu</b>
+              </div>
             </div>
-            <div class="col  border-left " >
-                  <p class="text-muted mt-5 pt-5 ">Le Prix total à payer:</p>
-                  <h1 class="display-3    d-sm-none d-md-block">{{ total }} Fbu </h1>
-                  <b>Cotion:{{ amount }} Fbu</b>
-                </div>
-          </div> 
           </div>
 
-                
-       </div>
 
-         
-
-                  
+        </div>
 
 
-       <form class="p-4 "  method="post" novalidate >
-              {% csrf_token %}
 
 
-                   <input type="hidden"  value='{{ fromdate }}' name="debut_sejour" >
-                   <input type="hidden"  value='{{ todate }}' name="fin_sejour" >
 
-      <button class="w-100 btn btn-lg btn-main" type="submit">Payer {{ amount }} Fbu</button> 
-          
+
+        <form class="p-4 " method="post" novalidate>
+          {% csrf_token %}
+
+
+          <input type="hidden" value='{{ fromdate }}' name="debut_sejour">
+          <input type="hidden" value='{{ todate }}' name="fin_sejour">
+
+          <button class="w-100 btn btn-lg btn-main" type="submit">Payer {{ amount }} Fbu</button>
+
 
         </form>
         <a href="" class="btn btn-warning m-2">Annuler</a>
-          <hr class="my-4">
+        <hr class="my-4">
 
       </div>
     </div>

@@ -1,37 +1,39 @@
 {% extends 'base.html'%}
-{% load  widget_tweaks %}
+{% load widget_tweaks %}
 
 
-{% block title %} Reservation{% endblock  %}
+{% block title %} Reservation{% endblock %}
 
 {% block content %}
 <div class="col">
-<section class="bg-cover text-dark">
-<div class="container col-xl-10 col-xxl-8 px-4">
-    <h1>Annuler la réservation </h1>
-    <hr class="text-primary ">
-    <div class="row align-items-center g-lg-5 py-1">
-      <div class="col-md-10 mx-auto  col-lg-5">
+  <section class="bg-cover text-dark">
+    <div class="container col-xl-10 col-xxl-8 px-4">
+      <h1>Annuler la réservation </h1>
+      <hr class="text-primary ">
+      <div class="row align-items-center g-lg-5 py-1">
+        <div class="col-md-10 mx-auto  col-lg-5">
 
 
 
 
-       <form class="p-4 p-md-5 border rounded-3 text-dark"  style="background-color:rgba(34,55,67,.2)" method="post" novalidate>
+          <form class="p-4 p-md-5 border rounded-3 text-dark" style="background-color:rgba(34,55,67,.2)" method="post"
+            novalidate>
 
 
-        <p class="alert alert-info">
-          
+            <p class="alert alert-info">
 
-          <span class="">
-            
-            <i class="fa-solid fa-circle-info fa-beat-fade fa-2x" style="--fa-beat-fade-opacity: 0.67; --fa-beat-fade-scale: 1.075;" ></i>
-           <i> Si vous annuler votre réservation vous ne pouvez pas la restorer !</i>
-          </span>
-        </p>
 
-              {% csrf_token %}
-           <h6 class="text-center">Détails :</h6>
-           <hr>
+              <span class="">
+
+                <i class="fa-solid fa-circle-info fa-beat-fade fa-2x"
+                  style="--fa-beat-fade-opacity: 0.67; --fa-beat-fade-scale: 1.075;"></i>
+                <i> Si vous annuler votre réservation vous ne pouvez pas la restorer !</i>
+              </span>
+            </p>
+
+            {% csrf_token %}
+            <h6 class="text-center">Détails :</h6>
+            <hr>
 
 
             <p><b>Début Séjour :<i> {{res.debut_sejour}}</i></b></p>
@@ -39,50 +41,51 @@
             <p><b>Chambre N* :<i> {{res.chambre.chambre_numero}}</i></b></p>
             <p><b>Prix :<i> {{res.chambre.categorie.prix}}</i></b></p>
             <p><b>Type :<i> {{res.chambre.categorie.type}}</i></b></p>
-           
-          
-
-            <span class="text-muted"><i>#Aide: Etes vous sûre de désactiver? Si Oui, veuillez choisir <b>False</b> !</i></span>
-
-
-                    {% if form.non_field_errors %}
-                      <div class="alert alert-danger" role="alert">
-                        {% for error in form.non_field_errors %}
-                          <p>{% if forloop.last %} class="mb-0"{% endif %}>{{ error }}</p>
-                        {% endfor %}
-                      </div>
-                    {% endif %}
-
-                    {% for field in form %}
-                      <div class="form-floating ">
-
-                        {% render_field field class="form-control bg-light text-dark" id='floatingInput'  %}
-                            {{ field.label_tag }}
-                        {% for error in field.errors %}
-                        <div class="invalid-feedback">
-                            {{ error }}
-                          </div>
-                        {% endfor %}
-<!--                        {% if field.help_text %}-->
-<!--                          <small class="form-text text-muted">-->
-<!--                            {{ field.help_text|safe }}-->
-<!--                          </small>-->
-<!--                        {% endif %}-->
-                      </div>
-                    {% endfor %}
-          <button class="w-100 btn btn-lg mt-2 btn-main" type="submit" >Enregistrer</button>
-          <hr class="my-4">
-
-        </form>
 
 
 
+            <span class="text-muted"><i>#Aide: Etes vous sûre de désactiver? Si Oui, veuillez choisir <b>False</b>
+                !</i></span>
+
+
+            {% if form.non_field_errors %}
+            <div class="alert alert-danger" role="alert">
+              {% for error in form.non_field_errors %}
+              <p>{% if forloop.last %} class="mb-0"{% endif %}>{{ error }}</p>
+              {% endfor %}
+            </div>
+            {% endif %}
+
+            {% for field in form %}
+            <div class="form-floating ">
+
+              {% render_field field class="form-control bg-light text-dark" id='floatingInput' %}
+              {{ field.label_tag }}
+              {% for error in field.errors %}
+              <div class="invalid-feedback">
+                {{ error }}
+              </div>
+              {% endfor %}
+              <!--                        {% if field.help_text %}-->
+              <!--                          <small class="form-text text-muted">-->
+              <!--                            {{ field.help_text|safe }}-->
+              <!--                          </small>-->
+              <!--                        {% endif %}-->
+            </div>
+            {% endfor %}
+            <button class="w-100 btn btn-lg mt-2 btn-main" type="submit">Enregistrer</button>
+            <hr class="my-4">
+
+          </form>
 
 
 
+
+
+
+        </div>
       </div>
     </div>
-  </div>
-</section>
-    </div>
+  </section>
+</div>
 {% endblock content%}

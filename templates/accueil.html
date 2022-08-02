@@ -1,160 +1,161 @@
 {% extends 'base.html'%}
-{% load  static %}
-{% load  widget_tweaks %}
- {% load app_tags %}
+{% load static %}
+{% load widget_tweaks %}
+{% load app_tags %}
 {% block content %}
 
- <!--hero-->
-    <section id="accueil" class="bg-cover hero-section" style="background-image: url({% static 'img/view1.jpg' %});">
-        <div class="overlay"></div>
-        <div class="container text-white text-center">
-            <div class="row">
+<!--hero-->
+<section id="accueil" class="bg-cover hero-section" style="background-image: url({% static 'img/view1.jpg' %});">
+    <div class="overlay"></div>
+    <div class="container text-white text-center">
+        <div class="row">
 
-                <div class="col-sm-6" id='disponibilite'>
-                    <h1 class="display-4" data-aos="zoom-in">Bienvenus, Sky Lodge vous réserve un accueil Chalereux</h1>
-                    <p class="my-4" data-aos="fade-up">Vérifier les dates disponibles  afin de réserver </p>
-                    
-                </div>
-                 <div class="col-sm-6" data-aos="fade-up">
-                     
-                     <div class="section-intro text-center" data-aos="fade-up">
+            <div class="col-sm-6" id='disponibilite'>
+                <h1 class="display-4" data-aos="zoom-in">Bienvenus, Sky Lodge vous réserve un accueil Chalereux</h1>
+                <p class="my-4" data-aos="fade-up">Vérifier les dates disponibles afin de réserver </p>
+
+            </div>
+            <div class="col-sm-6" data-aos="fade-up">
+
+                <div class="section-intro text-center" data-aos="fade-up">
                     <h1>Vérifier la disponibilité</h1>
                     <div class="divider"></div>
-                     </div>
+                </div>
 
-             {% for message in messages %}
-            <div class="alert alert-{{message.tags}} alert-dismissible fade show " role="alert">
-                        {{message}}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-            {% endfor %}
-                    <form  class="row g-4" method="post" novalidate>
-                         {% csrf_token %}
-                        <div class="form-group col-md-6">
-                            <strong>Début Séjour</strong>
-                            <input type="date" class="form-control" name="fromdate"  min="{% todays_date %}"  placeholder="Full name" required>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <strong>Fin Séjour</strong>
-                            <input type="date" class="form-control" name="todate" min="{% tommorow %}"  placeholder="Email address" required>
-                        </div>
-                       <!--  <div class="form-group col-md-12">
+                {% for message in messages %}
+                <div class="alert alert-{{message.tags}} alert-dismissible fade show " role="alert">
+                    {{message}}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endfor %}
+                <form class="row g-4" method="post" novalidate>
+                    {% csrf_token %}
+                    <div class="form-group col-md-6">
+                        <strong>Début Séjour</strong>
+                        <input type="date" class="form-control" name="fromdate" min="{% todays_date %}"
+                            placeholder="Full name" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <strong>Fin Séjour</strong>
+                        <input type="date" class="form-control" name="todate" min="{% tommorow %}"
+                            placeholder="Email address" required>
+                    </div>
+                    <!--  <div class="form-group col-md-12">
                             <input type="text" class="form-control" placeholder="Subject">
                         </div>
                         <div class="form-group col-md-12">
                             <textarea name="" id="" cols="30" rows="4" class="form-control" placeholder="Message"></textarea>
                         </div> -->
-                        <div class="text-center">
-                            <button class="btn btn-main" name="submit" type="submit">Vérifier </button>
-                        </div>
-                    </form>
+                    <div class="text-center">
+                        <button class="btn btn-main" name="submit" type="submit">Vérifier </button>
+                    </div>
+                </form>
 
-                    {% if data %}
-                    <div >
-        <table class="table table-hover"    id=" resultat">
-              <thead>
-                <tr>
-                  <th scope="col">Chambre</th>
-                  <th scope="col">Type</th>
-                  <th scope="col">Status</th>
-                  <th scope="col">Prix</th>
-                </tr>
-              </thead>
-              <tbody>
-              {% for data in data %}
-                <tr>
-                  <th scope="row">{{data.chambre_numero}}</th>
+                {% if data %}
+                <div>
+                    <table class="table table-hover" id=" resultat">
+                        <thead>
+                            <tr>
+                                <th scope="col">Chambre</th>
+                                <th scope="col">Type</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Prix</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for data in data %}
+                            <tr>
+                                <th scope="row">{{data.chambre_numero}}</th>
 
-                    <th scope="row">{{data.categorie.type}}</th>
+                                <th scope="row">{{data.categorie.type}}</th>
 
-                    <th scope="row">{{data.chambre_status}}</th>
-                    <th scope="row">{{data.categorie.prix}}</th>
-                    <th scope="row"><a class="btn btn-warning" href="{% url 'reservation' data.id fromdate todate%}">Choisir</a></th>
+                                <th scope="row">{{data.chambre_status}}</th>
+                                <th scope="row">{{data.categorie.prix}}</th>
+                                <th scope="row"><a class="btn btn-warning"
+                                        href="{% url 'reservation' data.id fromdate todate%}">Choisir</a></th>
 
-                </tr>
+                            </tr>
 
-              {% endfor %}
-              </tbody>
-            </table>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% endif %}
             </div>
-    {% endif %}
+        </div>
+    </div>
+</section>
+
+
+<!--services-->
+<section id="services" class="text-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 section-intro text-center" data-aos="fade-up">
+                <h1>Nos Services</h1>
+                <div class="divider"></div>
+                <p>Profitez les meilleurs services que nous vous offrons!
+                </p>
+            </div>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4" data-aos="zoom-in">
+                <div class="service">
+                    <div class="service-img">
+                        <img src="{% static 'img/view3.jpg'%}" alt="">
+                        <div class="icon"><i class="fa-solid fa-bed"></i></div>
+
+                    </div>
+                    <h5 class="mt-5 pt-4">Hébergement</h5>
+
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="zoom-in">
+                <div class="service">
+                    <div class="service-img">
+                        <img src="{% static 'img/view2.jpg'%}" alt="">
+                        <div class="icon"><i class="fa fa-utensils"></i></div>
+                    </div>
+                    <h5 class="mt-5 pt-4">Restauration</h5>
+
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="zoom-in">
+                <div class="service">
+                    <div class="service-img">
+                        <img src="{% static 'img/view1.jpg'%}" alt="">
+                        <div class="icon"><i class="fa fa-wifi"></i></div>
+                    </div>
+                    <h5 class="mt-5 pt-4">Profiter une connexion gratuite</h5>
+
                 </div>
             </div>
         </div>
-    </section>
-     
+    </div>
+</section>
 
-    <!--services-->
-    <section id="services" class="text-center">
-        <div class="container">
-            <div class="row">
-                <div class="col-12 section-intro text-center" data-aos="fade-up">
-                    <h1>Nos Services</h1>
-                    <div class="divider"></div>
-                    <p>Profitez les meilleurs services que nous vous offrons!
-                    </p>
-                </div>
-            </div>
-            <div class="row g-4">
-                <div class="col-md-4" data-aos="zoom-in">
-                    <div class="service">
-                        <div class="service-img">
-                            <img src="{% static 'img/view3.jpg'%}" alt="">
-                            <div class="icon"><i class="fa-solid fa-bed"></i></div>
-
-                        </div>
-                        <h5 class="mt-5 pt-4">Hébergement</h5>
-
-                    </div>
-                </div>
-                <div class="col-md-4" data-aos="zoom-in">
-                    <div class="service">
-                        <div class="service-img">
-                            <img src="{% static 'img/view2.jpg'%}" alt="">
-                            <div class="icon"><i class="fa fa-utensils"></i></div>
-                        </div>
-                        <h5 class="mt-5 pt-4">Restauration</h5>
-
-                    </div>
-                </div>
-                <div class="col-md-4" data-aos="zoom-in">
-                    <div class="service">
-                        <div class="service-img">
-                          <img src="{% static 'img/view1.jpg'%}" alt="">
-                            <div class="icon"><i class="fa fa-wifi"></i></div>
-                        </div>
-                        <h5 class="mt-5 pt-4">Profiter une connexion gratuite</h5>
-
-                    </div>
-                </div>
+<!--about-->
+<section id="apropos" class="bg-cover" style="background-image: url(img/view1.jpg);">
+    <div class="overlay"></div>
+    <div class="container text-white text-center">
+        <div class="row">
+            <div class="col-12 section-intro text-center" data-aos="fade-up">
+                <h1>À propos de Sky Lodge</h1>
+                <div class="divider"></div>
+                <p>Sky Lodge est un Hôtel situé en Province Rutana
+                    et propose des chambres élégantes avec une connxion WIFI gratuite .Il ya une restauration faite par
+                    commande <br>
+                    Sky Lodge est ouverte 24h/24.
+                </p>
+                <a href="#" class="video-btn"><i class='bx bx-play'>Réserver </i></a>
             </div>
         </div>
-    </section>
-
-     <!--about-->
-    <section id="apropos" class="bg-cover" style="background-image: url(img/view1.jpg);">
-        <div class="overlay"></div>
-        <div class="container text-white text-center">
-            <div class="row">
-                <div class="col-12 section-intro text-center" data-aos="fade-up">
-                    <h1>À propos de Sky Lodge</h1>
-                    <div class="divider"></div>
-                    <p>Sky Lodge est un Hôtel situé en Province Rutana
-                        et propose des chambres élégantes avec une connxion WIFI gratuite .Il ya une restauration faite par commande <br>
-                        Sky Lodge est ouverte 24h/24.
-                    </p>
-                    <a href="#" class="video-btn"><i class='bx bx-play'>Réserver  </i></a>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- end about -->
+    </div>
+</section>
+<!-- end about -->
 
 
 
 
 
 {% endblock content %}
-
-
-

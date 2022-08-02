@@ -1,84 +1,86 @@
 {% extends 'base.html'%}
-{% load  widget_tweaks %}
+{% load widget_tweaks %}
 
 
-{% block title %} Chambres{% endblock  %}
+{% block title %} Chambres{% endblock %}
 
 {% block content %}
 <div class="col">
-<section class="">
-<div class="container col-xl-10 col-xxl-8  ">
-<h4><i class="fa-solid fa-bookmark text-success"></i> Tous les reservations</h4>
-    <hr class="text-primary ">
-  <a class="btn btn-main flex-end" href="{% url 'history' %}">Historiques</a>
+  <section class="">
+    <div class="container col-xl-10 col-xxl-8  ">
+      <h4><i class="fa-solid fa-bookmark text-success"></i> Tous les reservations</h4>
+      <hr class="text-primary ">
+      <a class="btn btn-main flex-end" href="{% url 'history' %}">Historiques</a>
 
-    <div class="row align-items-center g-lg-5 d-flex justify-content-center">
-      <div class="col-lg-12 text-center text-lg-start">
+      <div class="row align-items-center g-lg-5 d-flex justify-content-center">
+        <div class="col-lg-12 text-center text-lg-start">
 
 
           <table class="table table-hover">
-              <thead>
-                <tr>
-                  <th scope="col">Début sejour</th>
-                  <th scope="col">Fin séjour</th>
-                  <th scope="col">Chambre</th>
-                  <th scope="col">Réserver le</th>
-                   <th scope="col">Status </th>
-                    {% if  user.is_staff %}
-                  <th scope="col">Par</th>
-                  <th scope="col">Editer</th>
-                    {% endif %}
-                    <th scope="col">Annuler</th>
-                </tr>
-              </thead>
-              <tbody>
-                {% for message in messages %}
-                        <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
-                        {{message}}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    {% endfor %}
+            <thead>
+              <tr>
+                <th scope="col">Début sejour</th>
+                <th scope="col">Fin séjour</th>
+                <th scope="col">Chambre</th>
+                <th scope="col">Réserver le</th>
+                <th scope="col">Status </th>
+                {% if user.is_staff %}
+                <th scope="col">Par</th>
+                <th scope="col">Editer</th>
+                {% endif %}
+                <th scope="col">Annuler</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for message in messages %}
+              <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
+                {{message}}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+              {% endfor %}
               {% for res in reservations %}
 
-                 {% if  user.is_staff or res.client == user %}
-                <tr>
-                  <th scope="row">{{res.debut_sejour}}</th>
-                  <td>{{res.fin_sejour}}</td>
-                  <td>{{res.chambre.chambre_numero}}</td>
+              {% if user.is_staff or res.client == user %}
+              <tr>
+                <th scope="row">{{res.debut_sejour}}</th>
+                <td>{{res.fin_sejour}}</td>
+                <td>{{res.chambre.chambre_numero}}</td>
 
-                  <td class="text-success"><i>{{res.date_operation}}</i> </td> 
+                <td class="text-success"><i>{{res.date_operation}}</i> </td>
 
 
-                   <td class="text-success">
+                <td class="text-success">
 
-                       {% if  res.status != "True" %}
-                          
-                          Annulé
+                  {% if res.status != "True" %}
 
-                        {% else %}
-                      
-                          Active
+                  Annulé
 
-                      {% endif %}
+                  {% else %}
 
-                    </td>
-                       {% if  user.is_staff %}
-                  <td class="text-muted"><i>{{res.client.username}}</i> </td>
-                   {% endif %}
-                  <td><a href="{% url 'update_reservation' res.id %}" title="Editer"><i class="lar la-times-circle fs-3 text-danger"></i></a></td>
-                    {% if  user.is_staff %}
-                  <td><a href="{% url 'del-reservation' res.id %}" title="Annuler"><i class="las la-trash fs-3 text-danger"></i></a></td>
-                    {% endif %}
-                   </tr>
+                  Active
+
+                  {% endif %}
+
+                </td>
+                {% if user.is_staff %}
+                <td class="text-muted"><i>{{res.client.username}}</i> </td>
                 {% endif %}
+                <td><a href="{% url 'update_reservation' res.id %}" title="Editer"><i
+                      class="lar la-times-circle fs-3 text-danger"></i></a></td>
+                {% if user.is_staff %}
+                <td><a href="{% url 'del-reservation' res.id %}" title="Annuler"><i
+                      class="las la-trash fs-3 text-danger"></i></a></td>
+                {% endif %}
+              </tr>
+              {% endif %}
               {% endfor %}
-              </tbody>
-            </table>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
-  </div>
 
-</section>
+  </section>
 </div>
 <!-- Modal -->
 

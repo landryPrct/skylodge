@@ -1,24 +1,25 @@
 {% extends 'base.html'%}
-{% load  widget_tweaks %}
+{% load widget_tweaks %}
 
 
-{% block title %} Pay{% endblock  %}
+{% block title %} Pay{% endblock %}
 
 {% block content %}
 
 
 <section class="bg-cove">
 	<div class="container">
-		<h2 class="text-muted"><i class="las la-credit-card la-2x text-success"></i>Paiement   <i > avec iHela Ryanje</i></h2>
+		<h2 class="text-muted"><i class="las la-credit-card la-2x text-success"></i>Paiement <i> avec iHela Ryanje</i>
+		</h2>
 		<hr>
 		<div class="row justify-content-center">
 
-             {% for message in messages %}
-            <div class="alert alert-{{message.tags}} alert-dismissible fade show " role="alert">
-                        {{message}}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-            {% endfor %}
+			{% for message in messages %}
+			<div class="alert alert-{{message.tags}} alert-dismissible fade show " role="alert">
+				{{message}}
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>
+			{% endfor %}
 			<div class="col-md-6 text-center">
 				{{ amout }}
 
@@ -27,16 +28,18 @@
 					{% csrf_token %}
 
 					<b>Ihela Code:</b>
-                   <input type="hidden"  class="rounded-2 border-primary  border-2 m-2 tex-dark w-100 p-2" value='{{ amount }}' name="amount" >
+					<input type="hidden" class="rounded-2 border-primary  border-2 m-2 tex-dark w-100 p-2"
+						value='{{ amount }}' name="amount">
 
-					<input type="text" class="rounded-2 border-primary  border-2 m-2 tex-dark w-100 p-2" name="account"><br>
+					<input type="text" class="rounded-2 border-primary  border-2 m-2 tex-dark w-100 p-2"
+						name="account"><br>
 
 
 					<button class="btn btn-main mt-5 ">Valider</button>
 
-					
+
 				</form>
-				
+
 			</div>
 		</div>
 	</div>

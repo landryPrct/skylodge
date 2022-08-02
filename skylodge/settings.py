@@ -5,7 +5,7 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 LOGOUT_REDIRECT_URL = 'home'
-ACCOUNT_DEFAULT_HTTP_PROTOCOL='https'
+ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'
 # LOGIN_REDIRECT_URL = 'home'
 LOGIN_URL = '/accounts/login/'
 # Quick-start development settings - unsuitable for production
@@ -17,37 +17,37 @@ SECRET_KEY = 'django-insecure-+mxcychl_+l)!v$e7av^8h3!dg8&lj+%ao+#oubxa@j-ogl5ak
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['skylodge.ubuviz.com','localhost','127.0.0.1']
+ALLOWED_HOSTS = ['skylodge.ubuviz.com', 'localhost', '127.0.0.1']
 
 # Application definition
 
 
 INSTALLED_APPS = [
-'jazzmin',
-'django.contrib.admin',
-'django.contrib.auth',
-'django.contrib.contenttypes',
-'django.contrib.sessions',
-'django.contrib.messages',
-'django.contrib.staticfiles',
+    'jazzmin',
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
 
-'django.contrib.sites',
-'rest_framework',
+    'django.contrib.sites',
+    'rest_framework',
 
-'allauth',
-'allauth.account',
-'allauth.socialaccount',
-'allauth.socialaccount.providers.google',
-'allauth.socialaccount.providers.facebook',
-'crispy_forms',
-'widget_tweaks',
-'accounts',
-'reservations',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.facebook',
+    'crispy_forms',
+    'widget_tweaks',
+    'accounts',
+    'reservations',
 
 ]
 
 MIDDLEWARE = [
-'django.middleware.security.SecurityMiddleware',
+    'django.middleware.security.SecurityMiddleware',
     # 'whitenoise.middleware.whiteNoiseMiddleware',# heruku
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -56,27 +56,27 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
-    ]
+]
 
 ROOT_URLCONF = 'skylodge.urls'
 
 TEMPLATES = [
     {
-    'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, 'templates')],  # le chemin de template
         'APP_DIRS': True,
         'OPTIONS': {
-        'context_processors': [
-        'django.template.context_processors.debug',
-        'django.template.context_processors.request',
-        'django.template.context_processors.request',
-        'django.contrib.auth.context_processors.auth',
-        'django.contrib.messages.context_processors.messages',
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
 
-        ],
+            ],
         },
-        },
-        ]
+    },
+]
 
 SITE_ID = 4
 
@@ -91,71 +91,71 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
 
 
-    ]
+]
 WSGI_APPLICATION = 'skylodge.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 DATABASES = {
-'default': {
+    'default': {
 
-'ENGINE': 'django.db.backends.postgresql_psycopg2',
-'NAME': 'skylodge',
-'USER': 'landry',
-'PASSWORD': 'landry2015',
-'HOST': 'localhost',
-'PORT': '',
+        # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        # 'NAME': 'skylodge',
+        # 'USER': 'landry',
+        # 'PASSWORD': 'landry2015',
+        # 'HOST': 'localhost',
+        # 'PORT': '',
 
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
 
-        }
-        }
+    }
+}
 
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
-{
-'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-},
-{
-'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-},
-{
-'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-},
-{
-'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-},
+    {
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    },
 ]
 SOCIALACCOUNT_PROVIDERS = {
-'google': {
-'SCOPE': [
-'profile',
-'email',
-],
-'AUTH_PARAMS': {
-'access_type': 'online',
-}
-},
-'facebook': {
-'METHOD': 'oauth2',
-'SCOPE': ['email', 'public_profile', 'user_friends'],
-'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
-'INIT_PARAMS': {'cookie': True},
-'FIELDS': [
-'id',
-'email',
-'name',
-],
-'EXCHANGE_TOKEN': True,
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    },
+    'facebook': {
+        'METHOD': 'oauth2',
+        'SCOPE': ['email', 'public_profile', 'user_friends'],
+        'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
+        'INIT_PARAMS': {'cookie': True},
+        'FIELDS': [
+            'id',
+            'email',
+            'name',
+        ],
+        'EXCHANGE_TOKEN': True,
         # 'LOCALE_FUNC': 'path.to.callable',
         'VERIFIED_EMAIL': False,
         'VERSION': 'v13.0',
-        },
-        }
+    },
+}
 
 # REST_FRAMEWORK = {
 #     # Use Django's standard `django.contrib.auth` permissions,
@@ -164,8 +164,6 @@ SOCIALACCOUNT_PROVIDERS = {
 #         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
 #     ]
 # }
-
-
 
 
 # Internationalization
@@ -185,12 +183,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 
-
- 
 STATIC_URL = '/static/'
 if DEBUG:
     STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static')
+        os.path.join(BASE_DIR, 'static')
     ]
 else:
     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
